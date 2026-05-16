@@ -83,9 +83,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",sa
 .vocab-nl{font-size:15px;font-weight:700;color:#0a1929;}
 .vocab-ipa{font-size:11px;color:#ea580c;font-style:italic;margin-top:1px;}
 .vocab-en{font-size:13px;color:#2a3441;margin-top:3px;}
-.vocab-side{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.vocab-side{flex-shrink:0;display:flex;flex-direction:row;align-items:center;gap:4px;}
 .speak{background:#f1ece2;border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px;color:#0a1929;}
 .speak:active{background:#e8e1d4;}
+.speak.slow{background:#fff4e0;color:#92400e;font-size:13px;}
+.speak.slower{background:#fde6c5;color:#7c2d12;font-size:13px;}
+.audio-row{display:flex;gap:6px;}
+.audio-row .btn{flex:1;min-width:0;}
+.audio-row .btn.slow{background:#fff4e0;color:#92400e;border:1px solid #fde6c5;}
+.audio-row .btn.slower{background:#fde6c5;color:#7c2d12;border:1px solid #fbcd9f;}
 
 .example{background:#fffaf0;border-left:3px solid #ea580c;padding:8px 12px;border-radius:0 8px 8px 0;margin:6px 0;}
 .example-nl{font-size:14px;color:#0a1929;font-weight:600;}
@@ -216,7 +222,10 @@ hr.div{border:none;border-top:1px solid #f1ece2;margin:6px 0;}
           <div class="vocab-ipa">/ha.&#712;lo&#650;/ &middot; /&#660;udn&#712;dax/</div>
           <div class="vocab-en">Hello &middot; Good day (formal)</div>
         </div>
-        <div class="vocab-side"><button class="speak" onclick="say('Hallo. Goedendag.')">&#9658;</button></div>
+        <div class="vocab-side">
+          <button class="speak" onclick="say('Hallo. Goedendag.')">&#9658;</button>
+          <button class="speak slow" onclick="say('Hallo. Goedendag.',0.5)" title="Slow">&#128034;</button>
+        </div>
       </div>
       <div class="vocab-line">
         <div>
@@ -224,7 +233,10 @@ hr.div{border:none;border-top:1px solid #f1ece2;margin:6px 0;}
           <div class="vocab-ipa">/d&#593;&#331;k y&#651; w&#603;l/</div>
           <div class="vocab-en">Thank you (formal)</div>
         </div>
-        <div class="vocab-side"><button class="speak" onclick="say('Dank u wel.')">&#9658;</button></div>
+        <div class="vocab-side">
+          <button class="speak" onclick="say('Dank u wel.')">&#9658;</button>
+          <button class="speak slow" onclick="say('Dank u wel.',0.5)" title="Slow">&#128034;</button>
+        </div>
       </div>
       <div class="vocab-line">
         <div>
@@ -232,7 +244,10 @@ hr.div{border:none;border-top:1px solid #f1ece2;margin:6px 0;}
           <div class="vocab-ipa">/&#712;a&#720;n&#660;&#601;na&#720;m/</div>
           <div class="vocab-en">Pleased to meet you</div>
         </div>
-        <div class="vocab-side"><button class="speak" onclick="say('Aangenaam kennis te maken.')">&#9658;</button></div>
+        <div class="vocab-side">
+          <button class="speak" onclick="say('Aangenaam kennis te maken.')">&#9658;</button>
+          <button class="speak slow" onclick="say('Aangenaam kennis te maken.',0.5)" title="Slow">&#128034;</button>
+        </div>
       </div>
     </div>
 
@@ -309,9 +324,13 @@ hr.div{border:none;border-top:1px solid #f1ece2;margin:6px 0;}
       </div>
       <div class="fc-hint" id="fcHint">Tap to flip</div>
     </div>
+    <div class="audio-row">
+      <button class="btn ghost" onclick="say(document.getElementById('fcFront').textContent)">&#9658; Hear</button>
+      <button class="btn slow" onclick="say(document.getElementById('fcFront').textContent,0.5)">&#128034; Slow</button>
+      <button class="btn slower" onclick="say(document.getElementById('fcFront').textContent,0.3)">&#128012; Slower</button>
+    </div>
     <div class="fc-actions">
       <button class="btn again" onclick="markCard(false)">Again</button>
-      <button class="btn ghost" onclick="say(document.getElementById('fcFront').textContent)">&#9658; Hear</button>
       <button class="btn good" onclick="markCard(true)">Got it</button>
     </div>
   </div>
@@ -420,7 +439,11 @@ hr.div{border:none;border-top:1px solid #f1ece2;margin:6px 0;}
       <div class="card">
         <span class="lbl">Speech</span>
         <p style="font-size:13px;line-height:1.5;">Audio uses your browser's built-in text-to-speech. Quality depends on your device. macOS/iOS &amp; modern Chrome usually have a Dutch voice (<i>nl-NL</i>) available.</p>
-        <button class="btn ghost small" onclick="say('Hallo, ik leer Nederlands.')" style="margin-top:10px;">Test Dutch voice</button>
+        <div class="audio-row" style="margin-top:10px;">
+          <button class="btn ghost small" onclick="say('Hallo, ik leer Nederlands.')">Test Normal</button>
+          <button class="btn slow small" onclick="say('Hallo, ik leer Nederlands.',0.5)">&#128034; Test Slow</button>
+          <button class="btn slower small" onclick="say('Hallo, ik leer Nederlands.',0.3)">&#128012; Test Slower</button>
+        </div>
       </div>
       <div class="card">
         <span class="lbl">Progress</span>
@@ -1314,7 +1337,10 @@ function openLesson(id){
             <div class="vocab-en">${v.en}</div>
             ${v.ex?`<div class="example" style="margin-top:6px;"><div class="example-nl">${v.ex.split(' &mdash; ')[0]}</div>${v.ex.includes(' &mdash; ')?`<div class="example-en">${v.ex.split(' &mdash; ')[1]}</div>`:''}</div>`:''}
           </div>
-          <div class="vocab-side"><button class="speak" onclick="say('${v.nl.replace(/'/g,"\\'")}')">&#9658;</button></div>
+          <div class="vocab-side">
+            <button class="speak" title="Normal" onclick="say('${v.nl.replace(/'/g,"\\'")}')">&#9658;</button>
+            <button class="speak slow" title="Slow" onclick="say('${v.nl.replace(/'/g,"\\'")}',0.5)">&#128034;</button>
+          </div>
         </div>
       `).join('')}
     </div>
@@ -1329,7 +1355,11 @@ function openLesson(id){
       <p style="font-size:14px;line-height:1.7;color:#0a1929;">${READINGS[l.id].nl}</p>
       <hr class="div" style="margin:10px 0;">
       <p style="font-size:13px;line-height:1.55;color:#6b6357;font-style:italic;">${READINGS[l.id].en}</p>
-      <button class="btn ghost small" style="margin-top:10px;" onclick="say('${READINGS[l.id].nl.replace(/<br[^>]*>/g,' ').replace(/&[a-z]+;/g,' ').replace(/'/g,"\\'").replace(/"/g,'')}')">&#9658; Hear the whole passage</button>
+      <div class="audio-row" style="margin-top:10px;">
+        <button class="btn ghost" onclick="sayReading('${l.id}')">&#9658; Hear</button>
+        <button class="btn slow" onclick="sayReading('${l.id}',0.5)">&#128034; Slow</button>
+        <button class="btn slower" onclick="sayReading('${l.id}',0.3)">&#128012; Slower</button>
+      </div>
     </div>`:''}
     <button class="btn alt block" onclick="markLessonDone('${l.id}')">${state.progress[l.id]?'&#10003; Completed':'Mark as Completed'}</button>
   `;
@@ -1477,24 +1507,33 @@ function openScenario(id){
           <div class="sl-speaker">${l.who}</div>
           <div class="sl-nl">${l.nl}</div>
           <div class="sl-en">${l.en}</div>
-          <button class="speak" style="margin-top:6px;" onclick="say('${l.nl.replace(/'/g,"\\'").replace(/<[^>]+>/g,'')}')">&#9658; Hear</button>
+          <div class="audio-row" style="margin-top:6px;">
+            <button class="btn ghost small" onclick="say('${l.nl.replace(/'/g,"\\'").replace(/<[^>]+>/g,'')}')">&#9658; Hear</button>
+            <button class="btn slow small" onclick="say('${l.nl.replace(/'/g,"\\'").replace(/<[^>]+>/g,'')}',0.5)">&#128034; Slow</button>
+          </div>
         </div>
       `).join('')}
     </div>
-    <button class="btn alt block" onclick="readScenario('${s.id}')">&#9658; Read whole dialogue</button>
+    <div class="audio-row">
+      <button class="btn alt" onclick="readScenario('${s.id}')">&#9658; Read all</button>
+      <button class="btn slow" onclick="readScenario('${s.id}',0.5)">&#128034; Slow</button>
+      <button class="btn slower" onclick="readScenario('${s.id}',0.3)">&#128012; Slower</button>
+    </div>
   `;
   document.getElementById('scenarioDlg').classList.add('on');
 }
 function closeScenario(){document.getElementById('scenarioDlg').classList.remove('on');}
 
-function readScenario(id){
+function readScenario(id,rate){
   const s=SCENARIOS.find(x=>x.id===id);if(!s)return;
   if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
   const v=_dutchVoice||pickDutchVoice();
+  const r=typeof rate==='number'?rate:0.95;
   s.lines.forEach(l=>{
     const u=new SpeechSynthesisUtterance(l.nl.replace(/<[^>]+>/g,''));
     u.lang='nl-NL';
+    u.rate=r;
     if(v)u.voice=v;
     window.speechSynthesis.speak(u);
   });
@@ -1522,15 +1561,23 @@ if(window.speechSynthesis){
   _dutchVoice=pickDutchVoice();
 }
 
-function say(text){
+function say(text,rate){
   if(!window.speechSynthesis){alert('Your browser does not support speech synthesis.');return;}
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
   u.lang='nl-NL';
-  u.rate=0.95;
+  u.rate=typeof rate==='number'?rate:0.95;
   const v=_dutchVoice||pickDutchVoice();
   if(v)u.voice=v;
   window.speechSynthesis.speak(u);
+}
+
+/* speak a Reading passage cleaned of HTML/entities, at a given rate */
+function sayReading(id,rate){
+  const r=(typeof READINGS!=='undefined')?READINGS[id]:null;
+  if(!r)return;
+  const clean=r.nl.replace(/<br[^>]*>/g,' ').replace(/&[a-z]+;/g,' ');
+  say(clean,rate);
 }
 
 /* ============================================================
