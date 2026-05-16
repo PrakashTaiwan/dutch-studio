@@ -1329,7 +1329,7 @@ function openLesson(id){
       <p style="font-size:14px;line-height:1.7;color:#0a1929;">${READINGS[l.id].nl}</p>
       <hr class="div" style="margin:10px 0;">
       <p style="font-size:13px;line-height:1.55;color:#6b6357;font-style:italic;">${READINGS[l.id].en}</p>
-      <button class="btn ghost small" style="margin-top:10px;" onclick="say('${READINGS[l.id].nl.replace(/<br\\s*\\/?>/g,' ').replace(/&[a-z]+;/g,' ').replace(/'/g,"\\'").replace(/"/g,'')}')">&#9658; Hear the whole passage</button>
+      <button class="btn ghost small" style="margin-top:10px;" onclick="say('${READINGS[l.id].nl.replace(/<br[^>]*>/g,' ').replace(/&[a-z]+;/g,' ').replace(/'/g,"\\'").replace(/"/g,'')}')">&#9658; Hear the whole passage</button>
     </div>`:''}
     <button class="btn alt block" onclick="markLessonDone('${l.id}')">${state.progress[l.id]?'&#10003; Completed':'Mark as Completed'}</button>
   `;
