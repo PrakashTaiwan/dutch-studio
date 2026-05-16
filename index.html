@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Comprehensive Dutch (Nederlands) learning app: A1 to C1 lessons, flashcards, AI tutor, vocabulary library, and business scenarios for Tamil Nadu &harr; Netherlands investment talks.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dutch Studio | Nederlands Learning App</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",sans-serif;background:#fefaf3;color:#0a1929;height:100vh;height:-webkit-fill-available;display:flex;flex-direction:column;overflow:hidden;}
+.hdr{background:linear-gradient(135deg,#0a1929,#1e3a8a);color:#fefaf3;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
+.logo{width:38px;height:38px;background:linear-gradient(135deg,#ea580c,#fbbf24);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#0a1929;letter-spacing:-1px;}
+.hdr-title{font-size:15px;font-weight:700;line-height:1.1;}
+.hdr-sub{font-size:11px;color:rgba(254,250,243,0.65);margin-top:2px;}
+.hdr-lvl{margin-left:auto;background:rgba(234,88,12,0.18);border:1px solid rgba(234,88,12,0.45);color:#fed7aa;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;cursor:pointer;}
+
+.scr{display:none;flex:1;flex-direction:column;overflow:hidden;}
+.scr.on{display:flex;}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 14px 18px;display:flex;flex-direction:column;gap:12px;}
+
+.card{background:white;border:1px solid #e8e1d4;border-radius:14px;padding:14px 16px;box-shadow:0 2px 6px rgba(10,25,41,0.05);}
+.card.tight{padding:12px 14px;}
+.card h3{font-size:15px;font-weight:700;color:#0a1929;margin-bottom:6px;}
+.card p{font-size:14px;line-height:1.55;color:#2a3441;}
+.lbl{font-size:10px;color:#8a7f6e;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:8px;display:block;}
+.muted{color:#6b6357;font-size:13px;}
+.sub{font-size:12px;color:#6b6357;margin-top:4px;}
+
+.pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:999px;text-transform:uppercase;}
+.pill.a1{background:#ecfdf5;color:#047857;}
+.pill.a2{background:#d1fae5;color:#065f46;}
+.pill.b1{background:#fef3c7;color:#92400e;}
+.pill.b2{background:#fed7aa;color:#9a3412;}
+.pill.c1{background:#fee2e2;color:#991b1b;}
+.pill.biz{background:#dbeafe;color:#1e3a8a;}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#0a1929;color:#fefaf3;border:none;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-appearance:none;letter-spacing:.02em;}
+.btn:hover{opacity:.9;}
+.btn.alt{background:#ea580c;color:white;}
+.btn.ghost{background:transparent;color:#0a1929;border:1px solid #e8e1d4;}
+.btn.small{padding:6px 10px;font-size:11px;border-radius:8px;}
+.btn.block{display:flex;width:100%;}
+
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.row.between{justify-content:space-between;}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+
+.tabs{display:flex;background:white;border-top:1px solid #e8e1d4;flex-shrink:0;}
+.tab{flex:1;min-width:0;padding:9px 4px 11px;border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border-top:2px solid transparent;-webkit-appearance:none;font-family:inherit;}
+.tab.on{border-top-color:#ea580c;}
+.tab-icon{font-size:17px;line-height:1;}
+.tab-lbl{font-size:10px;font-weight:700;letter-spacing:.04em;color:#8a7f6e;}
+.tab.on .tab-lbl{color:#ea580c;}
+
+/* lesson list */
+.lesson-row{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #f1ece2;cursor:pointer;}
+.lesson-row:last-child{border-bottom:none;}
+.lesson-num{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#fbbf24,#ea580c);color:#0a1929;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.lesson-num.done{background:linear-gradient(135deg,#10b981,#047857);color:white;}
+.lesson-meta{flex:1;min-width:0;}
+.lesson-title{font-size:14px;font-weight:700;color:#0a1929;}
+.lesson-focus{font-size:12px;color:#6b6357;margin-top:2px;}
+
+.lvl-pick{display:flex;gap:6px;flex-wrap:wrap;}
+.lvl-btn{padding:7px 13px;border-radius:999px;border:1.5px solid #e8e1d4;background:white;font-size:12px;font-weight:700;color:#6b6357;cursor:pointer;font-family:inherit;letter-spacing:.04em;}
+.lvl-btn.on{background:#0a1929;color:white;border-color:#0a1929;}
+
+/* lesson detail */
+.dialog-bk{position:fixed;inset:0;background:rgba(10,25,41,0.5);z-index:50;display:none;align-items:flex-end;justify-content:center;}
+.dialog-bk.on{display:flex;}
+.dialog{background:#fefaf3;width:100%;max-width:540px;border-radius:18px 18px 0 0;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;animation:slideUp .25s ease;}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.dialog-hdr{padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e8e1d4;background:white;}
+.dialog-hdr h2{font-size:15px;font-weight:700;flex:1;line-height:1.2;}
+.dialog-x{width:30px;height:30px;border-radius:8px;background:#f1ece2;border:none;font-size:18px;cursor:pointer;color:#6b6357;display:flex;align-items:center;justify-content:center;}
+.dialog-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:12px;}
+
+.vocab-line{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #f1ece2;}
+.vocab-line:last-child{border-bottom:none;}
+.vocab-nl{font-size:15px;font-weight:700;color:#0a1929;}
+.vocab-ipa{font-size:11px;color:#ea580c;font-style:italic;margin-top:1px;}
+.vocab-en{font-size:13px;color:#2a3441;margin-top:3px;}
+.vocab-side{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.speak{background:#f1ece2;border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px;color:#0a1929;}
+.speak:active{background:#e8e1d4;}
+
+.example{background:#fffaf0;border-left:3px solid #ea580c;padding:8px 12px;border-radius:0 8px 8px 0;margin:6px 0;}
+.example-nl{font-size:14px;color:#0a1929;font-weight:600;}
+.example-en{font-size:12px;color:#6b6357;margin-top:3px;font-style:italic;}
+
+/* flashcard */
+.fc-wrap{flex:1;display:flex;flex-direction:column;padding:16px 16px 20px;gap:14px;overflow:hidden;}
+.fc-prog{display:flex;align-items:center;gap:10px;}
+.fc-bar{flex:1;height:6px;background:#e8e1d4;border-radius:99px;overflow:hidden;}
+.fc-bar-fill{height:100%;background:linear-gradient(90deg,#fbbf24,#ea580c);transition:width .3s;}
+.fc-count{font-size:11px;color:#6b6357;font-weight:700;letter-spacing:.06em;}
+.fc-card{flex:1;background:white;border:1px solid #e8e1d4;border-radius:18px;box-shadow:0 4px 14px rgba(10,25,41,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;cursor:pointer;position:relative;min-height:240px;}
+.fc-card .lbl{position:absolute;top:14px;left:14px;}
+.fc-front{font-size:32px;font-weight:800;color:#0a1929;letter-spacing:-.5px;line-height:1.15;}
+.fc-ipa{font-size:14px;color:#ea580c;font-style:italic;margin-top:8px;}
+.fc-back{display:none;}
+.fc-card.flip .fc-front,.fc-card.flip .fc-ipa{display:none;}
+.fc-card.flip .fc-back{display:block;}
+.fc-back-en{font-size:24px;font-weight:700;color:#0a1929;line-height:1.2;}
+.fc-back-ex{font-size:13px;color:#6b6357;margin-top:12px;font-style:italic;line-height:1.45;max-width:300px;}
+.fc-hint{font-size:11px;color:#8a7f6e;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-top:14px;}
+.fc-actions{display:flex;gap:8px;}
+.fc-actions .btn{flex:1;}
+.btn.good{background:#047857;color:white;}
+.btn.again{background:#dc2626;color:white;}
+
+.deck-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1ece2;cursor:pointer;}
+.deck-row:last-child{border-bottom:none;}
+.deck-meta h4{font-size:14px;font-weight:700;color:#0a1929;}
+.deck-meta p{font-size:12px;color:#6b6357;margin-top:2px;}
+.deck-go{color:#ea580c;font-size:18px;font-weight:700;}
+
+/* vocab search */
+.search-bar{display:flex;gap:8px;padding:0 0 6px;}
+.search-bar input{flex:1;background:white;border:1px solid #e8e1d4;border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;color:#0a1929;outline:none;}
+.search-bar input:focus{border-color:#ea580c;}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;-webkit-overflow-scrolling:touch;}
+.chip{flex-shrink:0;padding:6px 11px;border-radius:999px;background:white;border:1px solid #e8e1d4;font-size:11px;font-weight:700;color:#6b6357;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;font-family:inherit;}
+.chip.on{background:#ea580c;color:white;border-color:#ea580c;}
+
+/* chat */
+.chat-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.msg{max-width:82%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.45;word-wrap:break-word;}
+.msg.user{align-self:flex-end;background:#0a1929;color:#fefaf3;border-bottom-right-radius:4px;}
+.msg.bot{align-self:flex-start;background:white;color:#0a1929;border:1px solid #e8e1d4;border-bottom-left-radius:4px;}
+.msg.bot .nl{font-weight:700;color:#ea580c;}
+.msg.bot .ipa{font-size:11px;font-style:italic;color:#6b6357;}
+.msg.sys{align-self:center;background:#fef3c7;color:#92400e;font-size:12px;padding:6px 10px;border-radius:999px;font-weight:600;}
+.chat-input-wrap{padding:10px 12px;background:white;border-top:1px solid #e8e1d4;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;}
+.chat-input{flex:1;background:#f8f3e9;border:1px solid #e8e1d4;border-radius:12px;padding:10px 12px;font-size:14px;font-family:inherit;color:#0a1929;outline:none;resize:none;max-height:90px;min-height:38px;}
+.chat-input:focus{border-color:#ea580c;background:white;}
+.chat-send{background:#ea580c;color:white;border:none;border-radius:10px;width:40px;height:40px;font-size:18px;cursor:pointer;flex-shrink:0;}
+.chat-send:disabled{opacity:.4;cursor:default;}
+
+.suggest{display:flex;gap:6px;overflow-x:auto;padding:6px 12px 10px;background:white;-webkit-overflow-scrolling:touch;border-top:1px solid #f1ece2;}
+.suggest button{flex-shrink:0;background:#fff8eb;border:1px solid #fde6c5;color:#92400e;font-size:12px;font-weight:600;padding:6px 11px;border-radius:999px;cursor:pointer;font-family:inherit;}
+
+/* scenario */
+.scenario-line{padding:10px 12px;border-radius:10px;margin-bottom:6px;}
+.scenario-line.a{background:#fff8eb;}
+.scenario-line.b{background:#eef4ff;}
+.sl-speaker{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8a7f6e;margin-bottom:3px;}
+.sl-nl{font-size:14px;color:#0a1929;font-weight:600;line-height:1.45;}
+.sl-en{font-size:12px;color:#6b6357;margin-top:3px;font-style:italic;}
+
+/* small helpers */
+hr.div{border:none;border-top:1px solid #f1ece2;margin:6px 0;}
+.kbd{display:inline-block;background:#f1ece2;padding:1px 6px;border-radius:5px;font-size:11px;font-family:monospace;color:#6b6357;}
+.flag{display:inline-block;font-size:14px;}
+
+@media (min-width:640px){
+  .scroll{padding:18px 22px 22px;}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">Nl</div>
+  <div>
+    <div class="hdr-title">Dutch Studio</div>
+    <div class="hdr-sub">Nederlands &middot; A1 &rarr; C1 &middot; Business</div>
+  </div>
+  <div class="hdr-lvl" id="hdrLvl">A1</div>
+</div>
+
+<!-- HOME -->
+<div class="scr on" id="scr-home">
+  <div class="scroll">
+    <div class="card">
+      <span class="lbl">Goedendag &mdash; Welcome</span>
+      <h3>Your Dutch journey, end to end</h3>
+      <p class="muted" style="margin-top:6px;">From <i>Hallo</i> to <i>contractonderhandelingen</i>. Pick a level below to filter lessons and flashcards, or jump straight to a tab.</p>
+    </div>
+
+    <div class="card">
+      <span class="lbl">Your Level</span>
+      <div class="lvl-pick" id="lvlPick">
+        <button class="lvl-btn on" data-lvl="A1">A1 &middot; Beginner</button>
+        <button class="lvl-btn" data-lvl="A2">A2 &middot; Elementary</button>
+        <button class="lvl-btn" data-lvl="B1">B1 &middot; Intermediate</button>
+        <button class="lvl-btn" data-lvl="B2">B2 &middot; Upper-Int.</button>
+        <button class="lvl-btn" data-lvl="C1">C1 &middot; Advanced</button>
+      </div>
+      <p class="sub" id="lvlDesc">A1 &mdash; Greetings, numbers, basic verbs, asking for simple things. About 4 weeks of focused study.</p>
+    </div>
+
+    <div class="card">
+      <span class="lbl">Today's Plan</span>
+      <div class="row" style="margin-bottom:10px;">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;">3-step daily routine</div>
+          <div class="sub" style="margin-top:2px;">~15 minutes total. Build the streak, build the brain.</div>
+        </div>
+      </div>
+      <div class="grid3">
+        <button class="btn alt" onclick="go('lessons')">1 &middot; Lesson</button>
+        <button class="btn alt" onclick="go('flashcards')">2 &middot; Cards</button>
+        <button class="btn alt" onclick="go('tutor')">3 &middot; Tutor</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="lbl">Quick Wins</span>
+      <div class="vocab-line">
+        <div>
+          <div class="vocab-nl">Hallo &middot; Goedendag</div>
+          <div class="vocab-ipa">/ha.&#712;lo&#650;/ &middot; /&#660;udn&#712;dax/</div>
+          <div class="vocab-en">Hello &middot; Good day (formal)</div>
+        </div>
+        <div class="vocab-side"><button class="speak" onclick="say('Hallo. Goedendag.')">&#9658;</button></div>
+      </div>
+      <div class="vocab-line">
+        <div>
+          <div class="vocab-nl">Dank u wel</div>
+          <div class="vocab-ipa">/d&#593;&#331;k y&#651; w&#603;l/</div>
+          <div class="vocab-en">Thank you (formal)</div>
+        </div>
+        <div class="vocab-side"><button class="speak" onclick="say('Dank u wel.')">&#9658;</button></div>
+      </div>
+      <div class="vocab-line">
+        <div>
+          <div class="vocab-nl">Aangenaam kennis te maken</div>
+          <div class="vocab-ipa">/&#712;a&#720;n&#660;&#601;na&#720;m/</div>
+          <div class="vocab-en">Pleased to meet you</div>
+        </div>
+        <div class="vocab-side"><button class="speak" onclick="say('Aangenaam kennis te maken.')">&#9658;</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="lbl">Did you know?</span>
+      <p>Dutch and English share roughly <b>60% of core vocabulary roots</b> &mdash; <i>water, hand, boek, koffie, melk</i>. The Netherlands is among Tamil Nadu's top European investment partners (high-tech, water management, agri-food). A few weeks of Dutch is high leverage for delegation meetings.</p>
+    </div>
+
+    <div class="card">
+      <span class="lbl">App Sections</span>
+      <div class="vocab-line" onclick="go('lessons')" style="cursor:pointer;">
+        <div><div class="vocab-nl">&#128218; Lessons</div><div class="vocab-en">20 structured units, A1 &rarr; C1</div></div>
+        <div class="vocab-side"><span style="color:#ea580c;font-size:18px;">&rsaquo;</span></div>
+      </div>
+      <div class="vocab-line" onclick="go('flashcards')" style="cursor:pointer;">
+        <div><div class="vocab-nl">&#127183; Flashcards</div><div class="vocab-en">7 decks, ~150 cards total</div></div>
+        <div class="vocab-side"><span style="color:#ea580c;font-size:18px;">&rsaquo;</span></div>
+      </div>
+      <div class="vocab-line" onclick="go('vocab')" style="cursor:pointer;">
+        <div><div class="vocab-nl">&#128214; Vocab + Scenarios</div><div class="vocab-en">Searchable library + 6 business dialogues</div></div>
+        <div class="vocab-side"><span style="color:#ea580c;font-size:18px;">&rsaquo;</span></div>
+      </div>
+      <div class="vocab-line" onclick="go('tutor')" style="cursor:pointer;">
+        <div><div class="vocab-nl">&#129302; AI Tutor</div><div class="vocab-en">Practice partner with optional Claude API</div></div>
+        <div class="vocab-side"><span style="color:#ea580c;font-size:18px;">&rsaquo;</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSONS -->
+<div class="scr" id="scr-lessons">
+  <div class="scroll">
+    <div class="card">
+      <span class="lbl">Lessons</span>
+      <h3>Structured Path &middot; A1 to C1</h3>
+      <p class="muted" style="margin-top:4px;">Tap a lesson to open vocabulary, grammar, and example sentences.</p>
+      <div class="lvl-pick" id="lessonLvlPick" style="margin-top:12px;">
+        <button class="lvl-btn on" data-lvl="ALL">All</button>
+        <button class="lvl-btn" data-lvl="A1">A1</button>
+        <button class="lvl-btn" data-lvl="A2">A2</button>
+        <button class="lvl-btn" data-lvl="B1">B1</button>
+        <button class="lvl-btn" data-lvl="B2">B2</button>
+        <button class="lvl-btn" data-lvl="C1">C1</button>
+      </div>
+    </div>
+    <div class="card" id="lessonList"></div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="scr" id="scr-flashcards">
+  <div class="scroll" id="deckScroll">
+    <div class="card">
+      <span class="lbl">Flashcards</span>
+      <h3>Pick a Deck</h3>
+      <p class="muted" style="margin-top:4px;">Tap a card to flip. Mark <b>Got it</b> or <b>Again</b> to track recall.</p>
+    </div>
+    <div class="card" id="deckList"></div>
+  </div>
+  <div class="fc-wrap" id="fcWrap" style="display:none;">
+    <div class="row between">
+      <button class="btn ghost small" onclick="closeDeck()">&larr; Decks</button>
+      <div class="fc-count" id="fcCount">1 / 1</div>
+    </div>
+    <div class="fc-bar"><div class="fc-bar-fill" id="fcBar" style="width:0%;"></div></div>
+    <div class="fc-card" id="fcCard" onclick="flipCard()">
+      <span class="lbl" id="fcDeck">Deck</span>
+      <div class="fc-front" id="fcFront">&mdash;</div>
+      <div class="fc-ipa" id="fcIpa">&mdash;</div>
+      <div class="fc-back">
+        <div class="fc-back-en" id="fcBackEn">&mdash;</div>
+        <div class="fc-back-ex" id="fcBackEx"></div>
+      </div>
+      <div class="fc-hint" id="fcHint">Tap to flip</div>
+    </div>
+    <div class="fc-actions">
+      <button class="btn again" onclick="markCard(false)">Again</button>
+      <button class="btn ghost" onclick="say(document.getElementById('fcFront').textContent)">&#9658; Hear</button>
+      <button class="btn good" onclick="markCard(true)">Got it</button>
+    </div>
+  </div>
+</div>
+
+<!-- VOCAB + SCENARIOS -->
+<div class="scr" id="scr-vocab">
+  <div class="scroll">
+    <div class="card">
+      <span class="lbl">Vocabulary &amp; Scenarios</span>
+      <h3>Searchable Library</h3>
+      <div class="search-bar" style="margin-top:10px;">
+        <input id="vocabSearch" placeholder="Search Dutch or English..." autocomplete="off">
+      </div>
+      <div class="chips" id="vocabChips">
+        <button class="chip on" data-topic="ALL">All</button>
+        <button class="chip" data-topic="greetings">Greetings</button>
+        <button class="chip" data-topic="numbers">Numbers</button>
+        <button class="chip" data-topic="time">Time</button>
+        <button class="chip" data-topic="food">Food</button>
+        <button class="chip" data-topic="travel">Travel</button>
+        <button class="chip" data-topic="business">Business</button>
+        <button class="chip" data-topic="meeting">Meeting</button>
+        <button class="chip" data-topic="email">Email</button>
+        <button class="chip" data-topic="idiom">Idioms</button>
+      </div>
+    </div>
+    <div class="card" id="vocabList"></div>
+
+    <div class="card">
+      <span class="lbl">Business Scenarios</span>
+      <h3>Real Dialogues</h3>
+      <p class="muted" style="margin-top:4px;">Tap a scenario to read the full dialogue, hear key lines, and grab phrases.</p>
+    </div>
+    <div class="card" id="scenarioList"></div>
+  </div>
+</div>
+
+<!-- TUTOR -->
+<div class="scr" id="scr-tutor">
+  <div class="chat-scroll" id="chatScroll"></div>
+  <div class="suggest" id="suggest">
+    <button onclick="askQuick('How do I say good morning?')">Good morning?</button>
+    <button onclick="askQuick('Translate: Nice to meet you, I am from India')">Nice to meet you</button>
+    <button onclick="askQuick('What is the difference between u and jij?')">u vs jij</button>
+    <button onclick="askQuick('Help me practice ordering coffee')">Order coffee</button>
+    <button onclick="askQuick('Give me 5 business phrases')">5 biz phrases</button>
+    <button onclick="askQuick('settings')">&#9881; Settings</button>
+  </div>
+  <div class="chat-input-wrap">
+    <textarea class="chat-input" id="chatInput" placeholder="Ask in English or Dutch&hellip;" rows="1"></textarea>
+    <button class="chat-send" id="chatSend" onclick="sendChat()">&uarr;</button>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab on" data-scr="home"><span class="tab-icon">&#127968;</span><span class="tab-lbl">Home</span></button>
+  <button class="tab" data-scr="lessons"><span class="tab-icon">&#128218;</span><span class="tab-lbl">Lessons</span></button>
+  <button class="tab" data-scr="flashcards"><span class="tab-icon">&#127183;</span><span class="tab-lbl">Cards</span></button>
+  <button class="tab" data-scr="vocab"><span class="tab-icon">&#128214;</span><span class="tab-lbl">Vocab</span></button>
+  <button class="tab" data-scr="tutor"><span class="tab-icon">&#129302;</span><span class="tab-lbl">Tutor</span></button>
+</div>
+
+<!-- LESSON DIALOG -->
+<div class="dialog-bk" id="lessonDlg" onclick="if(event.target===this)closeLesson()">
+  <div class="dialog">
+    <div class="dialog-hdr">
+      <h2 id="lessonDlgTitle">Lesson</h2>
+      <button class="dialog-x" onclick="closeLesson()">&times;</button>
+    </div>
+    <div class="dialog-body" id="lessonDlgBody"></div>
+  </div>
+</div>
+
+<!-- SCENARIO DIALOG -->
+<div class="dialog-bk" id="scenarioDlg" onclick="if(event.target===this)closeScenario()">
+  <div class="dialog">
+    <div class="dialog-hdr">
+      <h2 id="scenarioDlgTitle">Scenario</h2>
+      <button class="dialog-x" onclick="closeScenario()">&times;</button>
+    </div>
+    <div class="dialog-body" id="scenarioDlgBody"></div>
+  </div>
+</div>
+
+<!-- SETTINGS DIALOG -->
+<div class="dialog-bk" id="setDlg" onclick="if(event.target===this)closeSet()">
+  <div class="dialog">
+    <div class="dialog-hdr">
+      <h2>Settings</h2>
+      <button class="dialog-x" onclick="closeSet()">&times;</button>
+    </div>
+    <div class="dialog-body">
+      <div class="card">
+        <span class="lbl">AI Tutor &mdash; Optional Claude API</span>
+        <p style="font-size:13px;line-height:1.5;">Paste a Claude API key to get real conversational Dutch practice. Without a key, the tutor falls back to a built-in rule-based engine (greetings, translations, vocab lookups).</p>
+        <p class="sub" style="margin-top:6px;">Key is stored only in your browser (<span class="kbd">localStorage</span>). Calls go directly from this page to api.anthropic.com.</p>
+        <input id="apiKey" type="password" placeholder="sk-ant-..." style="width:100%;margin-top:10px;background:white;border:1px solid #e8e1d4;border-radius:10px;padding:10px 12px;font-size:13px;font-family:monospace;outline:none;">
+        <div class="row" style="margin-top:10px;">
+          <button class="btn alt small" onclick="saveKey()">Save key</button>
+          <button class="btn ghost small" onclick="clearKey()">Clear</button>
+          <span id="keyStatus" class="sub"></span>
+        </div>
+      </div>
+      <div class="card">
+        <span class="lbl">Speech</span>
+        <p style="font-size:13px;line-height:1.5;">Audio uses your browser's built-in text-to-speech. Quality depends on your device. macOS/iOS &amp; modern Chrome usually have a Dutch voice (<i>nl-NL</i>) available.</p>
+        <button class="btn ghost small" onclick="say('Hallo, ik leer Nederlands.')" style="margin-top:10px;">Test Dutch voice</button>
+      </div>
+      <div class="card">
+        <span class="lbl">Progress</span>
+        <p style="font-size:13px;line-height:1.5;">Lesson completion and flashcard recall are saved locally. Use the button below to reset.</p>
+        <button class="btn ghost small" onclick="resetProgress()" style="margin-top:10px;">Reset progress</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+
+const LESSONS = [
+  /* ---------- A1 ---------- */
+  {id:'a1-1', lvl:'A1', title:'Alphabet & Sounds',
+   focus:'Letters, hard G, long vs short vowels, the rolled R.',
+   grammar:'Dutch has 26 letters like English. Tricky sounds: <b>G/CH</b> (throaty), <b>UI</b> (mouth open, like \'how\' shifting to \'ow\'), <b>EU</b> (rounded, no English equivalent), <b>IJ</b> (treated as one letter, sounds like \'eye\').',
+   vocab:[
+     {nl:'goed',ipa:'/&#660;ut/',en:'good',ex:'Goed werk! &mdash; Good work!'},
+     {nl:'huis',ipa:'/h&oelig;ys/',en:'house',ex:'Mijn huis is groot. &mdash; My house is big.'},
+     {nl:'ijs',ipa:'/&#603;is/',en:'ice / ice cream',ex:'Ik wil ijs. &mdash; I want ice cream.'},
+     {nl:'school',ipa:'/sxol/',en:'school',ex:'De school is dicht. &mdash; The school is closed.'},
+     {nl:'meneer',ipa:'/m&#601;&#712;ne&#720;r/',en:'sir / Mr.',ex:'Goedemorgen, meneer. &mdash; Good morning, sir.'}
+   ],
+   examples:[
+     {nl:'Goed gedaan!',en:'Well done!'},
+     {nl:'Een huis met een tuin.',en:'A house with a garden.'}
+   ]},
+
+  {id:'a1-2', lvl:'A1', title:'Greetings & Introductions',
+   focus:'Hello, goodbye, name, where you\'re from.',
+   grammar:'Dutch distinguishes <b>jij/je</b> (informal "you") and <b>u</b> (formal). In business, default to <b>u</b> until invited to switch. <b>Aangenaam</b> = "Pleased (to meet you)".',
+   vocab:[
+     {nl:'Hallo',ipa:'/ha&#712;lo&#650;/',en:'Hello (any time)',ex:'Hallo, ik ben Prakash.'},
+     {nl:'Goedemorgen',ipa:'/&#660;ud&#601;&#712;m&#596;r&#660;&#601;/',en:'Good morning',ex:'Goedemorgen, hoe gaat het?'},
+     {nl:'Goedemiddag',ipa:'/&#660;ud&#601;&#712;m&#618;dax/',en:'Good afternoon',ex:'Goedemiddag, meneer.'},
+     {nl:'Goedenavond',ipa:'/&#660;ud&#601;&#712;na&#720;v&#596;nt/',en:'Good evening',ex:'Goedenavond, mevrouw.'},
+     {nl:'Tot ziens',ipa:'/t&#596;t zi&#720;ns/',en:'Goodbye',ex:'Tot ziens en een fijne dag!'},
+     {nl:'Doei',ipa:'/du&#690;/',en:'Bye (casual)',ex:'Doei, tot morgen!'},
+     {nl:'Hoe heet u?',ipa:'/hu he&#720;t y&#651;/',en:'What\'s your name? (formal)',ex:'Hoe heet u? &mdash; Ik heet Anna.'},
+     {nl:'Aangenaam',ipa:'/&#712;a&#720;n&#660;&#601;na&#720;m/',en:'Pleased to meet you',ex:'Aangenaam kennis te maken.'},
+     {nl:'Waar komt u vandaan?',ipa:'',en:'Where are you from? (formal)',ex:'Ik kom uit India.'}
+   ],
+   examples:[
+     {nl:'Goedemorgen. Ik ben Prakash uit Chennai.',en:'Good morning. I am Prakash from Chennai.'},
+     {nl:'Aangenaam kennis te maken, meneer De Vries.',en:'Pleased to meet you, Mr. De Vries.'},
+     {nl:'Tot ziens en bedankt voor uw tijd.',en:'Goodbye and thank you for your time.'}
+   ]},
+
+  {id:'a1-3', lvl:'A1', title:'Numbers, Days, Time',
+   focus:'Counting, telling time, scheduling.',
+   grammar:'Dutch numbers above 20 reverse: <b>eenentwintig</b> = "one-and-twenty" = 21. Half hours go <i>back</i>: <b>half drie</b> = 2:30 (half-way to three).',
+   vocab:[
+     {nl:'een, twee, drie',ipa:'',en:'one, two, three'},
+     {nl:'vier, vijf, zes',ipa:'',en:'four, five, six'},
+     {nl:'zeven, acht, negen, tien',ipa:'',en:'seven, eight, nine, ten'},
+     {nl:'twintig',ipa:'/&#712;tw&#618;nt&#601;x/',en:'twenty'},
+     {nl:'eenentwintig',ipa:'',en:'twenty-one (lit. "one-and-twenty")'},
+     {nl:'honderd',ipa:'/&#712;h&#596;nd&#601;rt/',en:'hundred'},
+     {nl:'maandag, dinsdag, woensdag',ipa:'',en:'Mon, Tue, Wed'},
+     {nl:'donderdag, vrijdag',ipa:'',en:'Thu, Fri'},
+     {nl:'zaterdag, zondag',ipa:'',en:'Sat, Sun'},
+     {nl:'Hoe laat is het?',ipa:'',en:'What time is it?',ex:'Het is half drie. &mdash; It\'s 2:30.'}
+   ],
+   examples:[
+     {nl:'De vergadering is om half tien.',en:'The meeting is at 9:30.'},
+     {nl:'Vrijdag om kwart over twee.',en:'Friday at quarter past two.'}
+   ]},
+
+  {id:'a1-4', lvl:'A1', title:'Verbs: zijn & hebben',
+   focus:'"To be" and "to have" &mdash; the foundation of everything.',
+   grammar:'<b>zijn</b> (to be): ik ben, jij bent, hij/zij is, wij zijn, jullie zijn, zij zijn.<br><b>hebben</b> (to have): ik heb, jij hebt, hij/zij heeft, wij hebben, jullie hebben, zij hebben.<br>In <b>questions</b>, the verb comes first: <i>Heb jij&hellip;? Ben jij&hellip;?</i>',
+   vocab:[
+     {nl:'Ik ben',ipa:'/&#618;k b&#603;n/',en:'I am',ex:'Ik ben Indiër. &mdash; I am Indian.'},
+     {nl:'Jij bent',ipa:'',en:'You are (informal)',ex:'Jij bent vroeg. &mdash; You are early.'},
+     {nl:'U bent',ipa:'',en:'You are (formal)',ex:'U bent welkom. &mdash; You are welcome.'},
+     {nl:'Hij/zij is',ipa:'',en:'He/she is'},
+     {nl:'Wij zijn',ipa:'',en:'We are'},
+     {nl:'Ik heb',ipa:'/&#618;k h&#603;p/',en:'I have',ex:'Ik heb een vraag. &mdash; I have a question.'},
+     {nl:'Hij heeft',ipa:'',en:'He has',ex:'Hij heeft een afspraak. &mdash; He has an appointment.'}
+   ],
+   examples:[
+     {nl:'Ik ben de directeur van een investeringsbureau.',en:'I am the director of an investment agency.'},
+     {nl:'Wij hebben een fabriek in Chennai.',en:'We have a factory in Chennai.'}
+   ]},
+
+  {id:'a1-5', lvl:'A1', title:'Articles: de & het',
+   focus:'Dutch has two definite articles and one indefinite.',
+   grammar:'Roughly 75% of nouns are <b>de</b>-words, 25% are <b>het</b>-words. The indefinite article is always <b>een</b> (a/an). Diminutives (-je) are always <b>het</b>. There is no perfect rule &mdash; learn each noun with its article.',
+   vocab:[
+     {nl:'de man',ipa:'',en:'the man'},
+     {nl:'de vrouw',ipa:'',en:'the woman'},
+     {nl:'het kind',ipa:'',en:'the child (het)'},
+     {nl:'het huis',ipa:'',en:'the house (het)'},
+     {nl:'de auto',ipa:'',en:'the car'},
+     {nl:'het boek',ipa:'',en:'the book (het)'},
+     {nl:'een vraag',ipa:'',en:'a question'},
+     {nl:'het bedrijf',ipa:'',en:'the company (het)'},
+     {nl:'de fabriek',ipa:'',en:'the factory'}
+   ],
+   examples:[
+     {nl:'Het bedrijf heeft een nieuwe fabriek.',en:'The company has a new factory.'},
+     {nl:'De vrouw met het boek is mijn collega.',en:'The woman with the book is my colleague.'}
+   ]},
+
+  /* ---------- A2 ---------- */
+  {id:'a2-1', lvl:'A2', title:'Present Tense: Regular Verbs',
+   focus:'How to conjugate any regular Dutch verb.',
+   grammar:'Take the infinitive (e.g. <b>werken</b> = to work), drop <b>-en</b> to get the stem <b>werk</b>. Then: <b>ik werk</b> (stem), <b>jij/u/hij/zij werkt</b> (stem+t), <b>wij/jullie/zij werken</b> (infinitive). In questions with <b>jij</b>, drop the -t: <i>Werk jij hier?</i>',
+   vocab:[
+     {nl:'werken',en:'to work',ex:'Ik werk in Chennai.'},
+     {nl:'wonen',en:'to live (reside)',ex:'Wij wonen in India.'},
+     {nl:'praten',en:'to talk',ex:'Hij praat met de klant.'},
+     {nl:'maken',en:'to make/do',ex:'Wij maken een afspraak.'},
+     {nl:'leren',en:'to learn',ex:'Ik leer Nederlands.'},
+     {nl:'kopen',en:'to buy',ex:'Zij koopt een ticket.'},
+     {nl:'spreken',en:'to speak',ex:'Spreekt u Engels?'},
+     {nl:'begrijpen',en:'to understand',ex:'Ik begrijp het niet.'}
+   ],
+   examples:[
+     {nl:'Ik werk bij een investeringsbureau in Tamil Nadu.',en:'I work at an investment agency in Tamil Nadu.'},
+     {nl:'Wij leren Nederlands voor onze partners.',en:'We learn Dutch for our partners.'}
+   ]},
+
+  {id:'a2-2', lvl:'A2', title:'Negation: niet & geen',
+   focus:'Saying "not" the Dutch way.',
+   grammar:'<b>Geen</b> negates an indefinite noun: <i>Ik heb een auto &rarr; Ik heb geen auto.</i><br><b>Niet</b> negates everything else (verbs, adjectives, definite nouns): <i>Ik werk niet vandaag. Het is niet duur. Ik ken de man niet.</i>',
+   vocab:[
+     {nl:'niet',en:'not',ex:'Ik versta het niet.'},
+     {nl:'geen',en:'no/none (with indefinite)',ex:'Ik heb geen tijd.'},
+     {nl:'nooit',en:'never',ex:'Ik drink nooit alcohol op het werk.'},
+     {nl:'niets',en:'nothing',ex:'Ik weet niets.'},
+     {nl:'niemand',en:'nobody',ex:'Er is niemand.'}
+   ],
+   examples:[
+     {nl:'Ik spreek geen Frans, maar wel Engels.',en:'I don\'t speak French, but I do speak English.'},
+     {nl:'De fabriek is vandaag niet open.',en:'The factory is not open today.'}
+   ]},
+
+  {id:'a2-3', lvl:'A2', title:'Asking Questions',
+   focus:'Yes/no questions and the W-words.',
+   grammar:'Yes/no: invert verb and subject. <i>Werk jij in Chennai?</i><br>W-words: <b>wie</b> (who), <b>wat</b> (what), <b>waar</b> (where), <b>wanneer</b> (when), <b>waarom</b> (why), <b>hoe</b> (how), <b>hoeveel</b> (how much/many), <b>welke</b> (which).',
+   vocab:[
+     {nl:'Wie',en:'Who?',ex:'Wie is dat?'},
+     {nl:'Wat',en:'What?',ex:'Wat doe jij?'},
+     {nl:'Waar',en:'Where?',ex:'Waar woont u?'},
+     {nl:'Wanneer',en:'When?',ex:'Wanneer komt u?'},
+     {nl:'Waarom',en:'Why?',ex:'Waarom Nederland?'},
+     {nl:'Hoe',en:'How?',ex:'Hoe gaat het?'},
+     {nl:'Hoeveel',en:'How much/many?',ex:'Hoeveel kost het?'},
+     {nl:'Welke',en:'Which?',ex:'Welke sector?'}
+   ],
+   examples:[
+     {nl:'Hoeveel werknemers heeft uw bedrijf?',en:'How many employees does your company have?'},
+     {nl:'Wanneer kunnen wij elkaar ontmoeten?',en:'When can we meet each other?'}
+   ]},
+
+  {id:'a2-4', lvl:'A2', title:'Family, Home, Food',
+   focus:'Daily life vocabulary, useful in small talk.',
+   grammar:'Possessive pronouns: <b>mijn</b> (my), <b>jouw/uw</b> (your), <b>zijn</b> (his), <b>haar</b> (her), <b>ons/onze</b> (our), <b>jullie</b> (your pl.), <b>hun</b> (their). <i>Onze</i> is used with <b>de</b>-words plural; <b>ons</b> with <b>het</b>-words singular.',
+   vocab:[
+     {nl:'de familie',en:'the family'},
+     {nl:'de vader',en:'the father'},
+     {nl:'de moeder',en:'the mother'},
+     {nl:'de broer',en:'the brother'},
+     {nl:'de zus',en:'the sister'},
+     {nl:'de zoon, de dochter',en:'son, daughter'},
+     {nl:'het brood',en:'bread'},
+     {nl:'de koffie, de thee',en:'coffee, tea'},
+     {nl:'het water',en:'water'},
+     {nl:'lekker',en:'tasty/nice',ex:'Het eten is lekker.'},
+     {nl:'gezellig',en:'cozy/sociable (untranslatable)',ex:'Wat een gezellige avond!'}
+   ],
+   examples:[
+     {nl:'Mijn dochter studeert in Bangalore.',en:'My daughter studies in Bangalore.'},
+     {nl:'Wilt u koffie of thee?',en:'Would you like coffee or tea?'}
+   ]},
+
+  /* ---------- B1 ---------- */
+  {id:'b1-1', lvl:'B1', title:'Perfect Tense (Voltooide Tijd)',
+   focus:'Talking about completed past events.',
+   grammar:'Form: <b>hebben/zijn + past participle</b>. Most verbs use <i>hebben</i>; verbs of movement and state-change use <i>zijn</i> (gaan, komen, blijven, worden). Regular participle: <b>ge + stem + t/d</b>. <i>gewerkt, gemaakt, gewoond</i>. The participle goes to the end of the clause.',
+   vocab:[
+     {nl:'Ik heb gewerkt',en:'I have worked / I worked',ex:'Ik heb gisteren in Chennai gewerkt.'},
+     {nl:'Wij hebben gepraat',en:'We talked',ex:'Wij hebben lang gepraat.'},
+     {nl:'Hij is gegaan',en:'He has gone',ex:'Hij is naar Rotterdam gegaan.'},
+     {nl:'Zij is gekomen',en:'She has come',ex:'Zij is vanmorgen gekomen.'},
+     {nl:'Ik heb gezien',en:'I have seen',ex:'Ik heb de fabriek gezien.'},
+     {nl:'Wij hebben gegeten',en:'We have eaten',ex:'Wij hebben goed gegeten.'}
+   ],
+   examples:[
+     {nl:'Vorige week heb ik de Nederlandse delegatie ontvangen.',en:'Last week I received the Dutch delegation.'},
+     {nl:'Zij is naar India gevlogen om de fabriek te bezoeken.',en:'She flew to India to visit the factory.'}
+   ]},
+
+  {id:'b1-2', lvl:'B1', title:'Modal Verbs',
+   focus:'kunnen, mogen, moeten, willen, zullen.',
+   grammar:'Modal + infinitive at the end: <i>Ik wil Nederlands leren.</i><br><b>kunnen</b> = can/be able. <b>mogen</b> = may/be allowed. <b>moeten</b> = must/have to. <b>willen</b> = want. <b>zullen</b> = shall (used for future/suggestions: <i>Zullen we&hellip;? Shall we?</i>)',
+   vocab:[
+     {nl:'Ik kan',en:'I can',ex:'Ik kan Engels spreken.'},
+     {nl:'Mag ik&hellip;?',en:'May I&hellip;?',ex:'Mag ik binnenkomen?'},
+     {nl:'Ik moet',en:'I must',ex:'Ik moet morgen vertrekken.'},
+     {nl:'Ik wil',en:'I want',ex:'Ik wil graag een afspraak maken.'},
+     {nl:'Zullen we&hellip;?',en:'Shall we&hellip;?',ex:'Zullen we beginnen?'},
+     {nl:'graag',en:'gladly / please',ex:'Graag, dank u.'}
+   ],
+   examples:[
+     {nl:'Wij willen graag samenwerken met Nederlandse bedrijven.',en:'We would gladly cooperate with Dutch companies.'},
+     {nl:'U moet eerst het visum aanvragen.',en:'You must apply for the visa first.'}
+   ]},
+
+  {id:'b1-3', lvl:'B1', title:'Word Order: V2 & Subclauses',
+   focus:'The unbreakable rule of Dutch word order.',
+   grammar:'Main clause: <b>verb is in 2nd position</b>. Anything can come first &mdash; subject, time, object &mdash; but the verb is always #2. <i>Morgen ga ik naar Amsterdam.</i><br>Subclause (after <i>dat, omdat, als, terwijl, hoewel</i>): <b>verb goes to the end</b>. <i>Ik weet dat hij komt. Omdat ik moe ben.</i>',
+   vocab:[
+     {nl:'dat',en:'that (conj.)',ex:'Ik denk dat het waar is.'},
+     {nl:'omdat',en:'because',ex:'Omdat het regent.'},
+     {nl:'als',en:'if / when',ex:'Als u tijd heeft.'},
+     {nl:'terwijl',en:'while',ex:'Terwijl ik werkte.'},
+     {nl:'hoewel',en:'although',ex:'Hoewel het laat is.'},
+     {nl:'want',en:'because (main clause)',ex:'Hij komt, want hij wil helpen.'}
+   ],
+   examples:[
+     {nl:'Morgen ga ik naar de Nederlandse ambassade.',en:'Tomorrow I am going to the Dutch embassy.'},
+     {nl:'Ik geloof dat onze landen veel kunnen leren van elkaar.',en:'I believe that our countries can learn much from each other.'}
+   ]},
+
+  {id:'b1-4', lvl:'B1', title:'Separable Verbs',
+   focus:'Verbs that split apart in main clauses.',
+   grammar:'A separable verb (e.g. <b>opbellen</b> = to call up) splits: prefix goes to the end. <i>Ik bel u morgen op.</i> In a subclause or as infinitive, they stay together: <i>Ik wil u opbellen. &hellip;dat ik u opbel.</i>',
+   vocab:[
+     {nl:'opbellen',en:'to call (phone)',ex:'Ik bel u morgen op.'},
+     {nl:'aankomen',en:'to arrive',ex:'Zij komt om zeven uur aan.'},
+     {nl:'meenemen',en:'to bring along',ex:'Neemt u uw paspoort mee?'},
+     {nl:'uitleggen',en:'to explain',ex:'Ik leg het uit.'},
+     {nl:'samenwerken',en:'to cooperate',ex:'Wij werken graag samen.'},
+     {nl:'afspreken',en:'to agree / arrange',ex:'Wij spreken een tijd af.'}
+   ],
+   examples:[
+     {nl:'Onze CEO komt vrijdag aan op Schiphol.',en:'Our CEO arrives at Schiphol on Friday.'},
+     {nl:'Ik leg de investeringsstructuur straks uit.',en:'I will explain the investment structure shortly.'}
+   ]},
+
+  /* ---------- B2 ---------- */
+  {id:'b2-1', lvl:'B2', title:'Imperfect Tense (Simple Past)',
+   focus:'Used for narration, background, and habitual past.',
+   grammar:'Regular: stem + <b>-te(n)</b> or <b>-de(n)</b>. Use -te after the consonants in \'<b>\'t kofschip</b>\' (t, k, f, s, ch, p); use -de after others. <i>werken &rarr; werkte. wonen &rarr; woonde.</i><br>Irregular verbs are common: <b>was/waren</b> (was/were), <b>had/hadden</b>, <b>ging/gingen</b>, <b>kwam/kwamen</b>, <b>kon/konden</b>.',
+   vocab:[
+     {nl:'ik was, wij waren',en:'I was, we were'},
+     {nl:'ik had, wij hadden',en:'I had, we had'},
+     {nl:'ik ging, wij gingen',en:'I went, we went'},
+     {nl:'ik kwam, wij kwamen',en:'I came, we came'},
+     {nl:'ik kon, wij konden',en:'I could, we could'},
+     {nl:'ik werkte',en:'I worked'},
+     {nl:'ik woonde',en:'I lived'},
+     {nl:'ik dacht',en:'I thought'}
+   ],
+   examples:[
+     {nl:'Tien jaar geleden was Tamil Nadu nog niet zo industrieel ontwikkeld.',en:'Ten years ago Tamil Nadu was not yet so industrially developed.'},
+     {nl:'Toen ik in Eindhoven was, sprak ik met ASML.',en:'When I was in Eindhoven, I spoke with ASML.'}
+   ]},
+
+  {id:'b2-2', lvl:'B2', title:'Conditional & "zou"',
+   focus:'Polite requests, hypotheticals, would-statements.',
+   grammar:'<b>zou + infinitive</b> = would. <i>Ik zou graag&hellip;</i> (I would like&hellip;). Used heavily in formal/business Dutch to soften statements. <b>Zou u kunnen&hellip;?</b> = "Could you possibly&hellip;?" &mdash; the most polite ask.',
+   vocab:[
+     {nl:'Ik zou graag&hellip;',en:'I would like&hellip;',ex:'Ik zou graag uw mening horen.'},
+     {nl:'Zou u kunnen&hellip;?',en:'Could you possibly&hellip;?',ex:'Zou u kunnen langskomen?'},
+     {nl:'Het zou fijn zijn als&hellip;',en:'It would be nice if&hellip;',ex:'Het zou fijn zijn als wij volgende week konden afspreken.'},
+     {nl:'Wij zouden willen&hellip;',en:'We would like to&hellip;'},
+     {nl:'als ik u was',en:'if I were you'}
+   ],
+   examples:[
+     {nl:'Zou u zo vriendelijk willen zijn om mij de presentatie te sturen?',en:'Would you be so kind as to send me the presentation?'},
+     {nl:'Wij zouden de fabriek graag eind oktober openen.',en:'We would like to open the factory at the end of October.'}
+   ]},
+
+  {id:'b2-3', lvl:'B2', title:'Passive Voice',
+   focus:'Reports, processes, and depersonalised statements.',
+   grammar:'<b>worden + past participle</b> (present passive); <b>zijn + past participle</b> (perfect passive). <i>De fabriek wordt gebouwd.</i> = The factory is being built. <i>De fabriek is gebouwd.</i> = The factory has been built. The agent is added with <b>door</b>.',
+   vocab:[
+     {nl:'wordt gebouwd',en:'is being built'},
+     {nl:'is gebouwd',en:'has been built'},
+     {nl:'wordt ondertekend',en:'is being signed'},
+     {nl:'wordt aangekondigd',en:'is being announced'},
+     {nl:'door',en:'by (agent)',ex:'gebouwd door TVS.'}
+   ],
+   examples:[
+     {nl:'Het contract wordt deze week ondertekend door beide partijen.',en:'The contract is being signed this week by both parties.'},
+     {nl:'De nieuwe vestiging is geopend in aanwezigheid van de minister.',en:'The new location was opened in the presence of the minister.'}
+   ]},
+
+  {id:'b2-4', lvl:'B2', title:'Diminutives & Tone',
+   focus:'-je, -tje, -etje, -pje, -kje &mdash; the Dutch superpower.',
+   grammar:'Add <b>-je</b> (or variant) to almost any noun. Effect: small, cute, friendly, or just polite. <i>kop &rarr; kopje (a little cup), brief &rarr; briefje (a note), uurtje (a little hour)</i>. Diminutives are always <b>het</b>-words. Overuse softens tone &mdash; Dutch business culture uses them liberally.',
+   vocab:[
+     {nl:'een kopje koffie',en:'a (little) cup of coffee'},
+     {nl:'een momentje',en:'just a moment'},
+     {nl:'een briefje',en:'a note'},
+     {nl:'een dingetje',en:'a little thing'},
+     {nl:'het meisje',en:'the girl (literally "little maid")'},
+     {nl:'een snelle vraag / vraagje',en:'a quick question'}
+   ],
+   examples:[
+     {nl:'Een momentje, ik schakel u door.',en:'One moment, I\'ll transfer you.'},
+     {nl:'Mag ik een vraagje stellen?',en:'May I ask a quick question?'}
+   ]},
+
+  /* ---------- C1 ---------- */
+  {id:'c1-1', lvl:'C1', title:'Formal Register & Business Writing',
+   focus:'Email openings, closings, and high-register phrasing.',
+   grammar:'In formal writing default to <b>u</b>, <b>uw</b>, and <b>zou&hellip;willen</b> constructions. Avoid contractions and slang. Standard closings: <b>Met vriendelijke groet</b> (M.v.g.) &mdash; informal-formal; <b>Hoogachtend</b> &mdash; very formal.',
+   vocab:[
+     {nl:'Geachte heer / mevrouw',en:'Dear sir / madam (formal email open)'},
+     {nl:'Beste &lt;voornaam&gt;',en:'Dear &lt;first name&gt; (semi-formal)'},
+     {nl:'Met vriendelijke groet',en:'With kind regards (standard close)'},
+     {nl:'Hoogachtend',en:'Yours faithfully (very formal)'},
+     {nl:'Bij voorbaat dank',en:'Thanks in advance'},
+     {nl:'In afwachting van uw reactie',en:'Looking forward to your reply'},
+     {nl:'Naar aanleiding van&hellip;',en:'With reference to&hellip;'},
+     {nl:'Hierbij bevestig ik&hellip;',en:'I hereby confirm&hellip;'}
+   ],
+   examples:[
+     {nl:'Geachte mevrouw De Vries, naar aanleiding van ons gesprek stuur ik u hierbij het voorstel.',en:'Dear Ms. De Vries, following up on our discussion I hereby send you the proposal.'},
+     {nl:'In afwachting van uw reactie verblijf ik, met vriendelijke groet, Prakash.',en:'Looking forward to your reply, kind regards, Prakash.'}
+   ]},
+
+  {id:'c1-2', lvl:'C1', title:'Complex Connectors',
+   focus:'Making arguments hang together.',
+   grammar:'Higher-register connectors signal sophistication: <b>desondanks</b> (nevertheless), <b>bovendien</b> (moreover), <b>derhalve</b> (therefore &mdash; formal), <b>enerzijds&hellip;anderzijds</b> (on one hand&hellip;on the other), <b>met het oog op</b> (with a view to). All push the verb depending on clause type.',
+   vocab:[
+     {nl:'desondanks',en:'nevertheless'},
+     {nl:'bovendien',en:'moreover, in addition'},
+     {nl:'derhalve',en:'therefore (formal)'},
+     {nl:'enerzijds&hellip;anderzijds',en:'on one hand&hellip;on the other'},
+     {nl:'met het oog op',en:'with a view to'},
+     {nl:'mits',en:'provided that'},
+     {nl:'tenzij',en:'unless'},
+     {nl:'naarmate',en:'as / to the extent that'}
+   ],
+   examples:[
+     {nl:'Bovendien biedt Tamil Nadu een hooggekwalificeerde arbeidsmarkt en concurrerende kosten.',en:'Moreover, Tamil Nadu offers a highly qualified labour market and competitive costs.'},
+     {nl:'Wij gaan akkoord, mits de leveringsdatum gehandhaafd blijft.',en:'We agree, provided that the delivery date is maintained.'}
+   ]},
+
+  {id:'c1-3', lvl:'C1', title:'Idioms & Expressions',
+   focus:'Sound like a native, not a textbook.',
+   grammar:'Idioms unlock the cultural layer. The Dutch love directness &mdash; many idioms reflect this. Use sparingly in business until you\'re comfortable.',
+   vocab:[
+     {nl:'Iets onder de knie hebben',en:'To have mastered something',ex:'Hij heeft Excel onder de knie.'},
+     {nl:'De kat uit de boom kijken',en:'To wait and see (lit. "watch the cat from the tree")'},
+     {nl:'Met de deur in huis vallen',en:'To get straight to the point'},
+     {nl:'Knopen doorhakken',en:'To make a decision (lit. "cut the knots")'},
+     {nl:'Iets op de lange baan schuiven',en:'To put off, postpone indefinitely'},
+     {nl:'De puntjes op de i zetten',en:'To dot the i\'s &mdash; finalise details'},
+     {nl:'Niet over één nacht ijs gaan',en:'Not to rush a decision (lit. "not cross one-night ice")'},
+     {nl:'Helder',en:'Clear / understood (very common business word)'}
+   ],
+   examples:[
+     {nl:'Laten wij de puntjes op de i zetten in het contract.',en:'Let\'s finalise the details in the contract.'},
+     {nl:'Wij gaan niet over één nacht ijs &mdash; due diligence kost tijd.',en:'We are not rushing &mdash; due diligence takes time.'}
+   ]},
+
+  {id:'c1-4', lvl:'C1', title:'Dutch Business Culture',
+   focus:'Norms, not vocabulary.',
+   grammar:'<b>Directness</b>: Dutch counterparts say what they mean &mdash; do not read it as rudeness. <b>Punctuality</b>: 5 minutes early = on time. <b>Hierarchy</b>: flat; the CEO will speak with the intern. <b>Consensus</b> (<i>polderen</i>): decisions are often reached by long discussion. <b>Lunch is light</b>: a sandwich (<i>broodje</i>) at the desk is normal. <b>Bring numbers</b>: opinions matter less than data. <b>Email replies</b>: same day is expected for business correspondence.',
+   vocab:[
+     {nl:'het overleg',en:'the discussion/consultation'},
+     {nl:'het polderen',en:'consensus-building (Dutch cultural concept)'},
+     {nl:'de afspraak',en:'the appointment/agreement'},
+     {nl:'de samenwerking',en:'the cooperation'},
+     {nl:'de onderhandeling',en:'the negotiation'},
+     {nl:'duidelijkheid',en:'clarity'}
+   ],
+   examples:[
+     {nl:'Nederlandse partners waarderen duidelijkheid boven beleefdheid.',en:'Dutch partners value clarity over politeness.'},
+     {nl:'Laten wij eerst overleggen en daarna knopen doorhakken.',en:'Let\'s first consult, then make decisions.'}
+   ]}
+];
+
+const DECKS = [
+  {id:'a1ess', name:'A1 Essentials', lvl:'A1', desc:'Greetings, numbers, basic verbs',
+   cards:[
+     {nl:'Hallo',en:'Hello',ipa:'/ha&#712;lo&#650;/'},
+     {nl:'Goedemorgen',en:'Good morning',ipa:''},
+     {nl:'Goedendag',en:'Good day',ipa:''},
+     {nl:'Goedenavond',en:'Good evening',ipa:''},
+     {nl:'Tot ziens',en:'Goodbye',ipa:''},
+     {nl:'Doei',en:'Bye (casual)',ipa:''},
+     {nl:'Ja / Nee',en:'Yes / No',ipa:''},
+     {nl:'Dank u wel',en:'Thank you (formal)',ipa:''},
+     {nl:'Alsjeblieft',en:'Please / Here you go',ipa:''},
+     {nl:'Sorry / Pardon',en:'Sorry / Excuse me',ipa:''},
+     {nl:'Hoe heet u?',en:'What is your name?',ipa:''},
+     {nl:'Ik heet&hellip;',en:'My name is&hellip;',ipa:''},
+     {nl:'Aangenaam',en:'Pleased to meet you',ipa:''},
+     {nl:'Hoe gaat het?',en:'How are you?',ipa:''},
+     {nl:'Goed, dank u',en:'Good, thanks',ipa:''},
+     {nl:'een, twee, drie',en:'one, two, three',ipa:''},
+     {nl:'vier, vijf, zes',en:'four, five, six',ipa:''},
+     {nl:'zeven, acht, negen, tien',en:'seven, eight, nine, ten',ipa:''},
+     {nl:'Ik ben',en:'I am',ipa:''},
+     {nl:'Ik heb',en:'I have',ipa:''},
+     {nl:'Ik wil',en:'I want',ipa:''},
+     {nl:'Ik kom uit India',en:'I am from India',ipa:''},
+     {nl:'Spreekt u Engels?',en:'Do you speak English?',ipa:''},
+     {nl:'Ik begrijp het niet',en:'I don\'t understand',ipa:''},
+     {nl:'Kunt u dat herhalen?',en:'Can you repeat that?',ipa:''}
+   ]},
+  {id:'a2daily', name:'A2 Daily Life', lvl:'A2', desc:'Around town, food, family',
+   cards:[
+     {nl:'de straat',en:'the street'},
+     {nl:'het station',en:'the (train) station'},
+     {nl:'de bus, de trein',en:'the bus, the train'},
+     {nl:'het vliegveld',en:'the airport'},
+     {nl:'links / rechts',en:'left / right'},
+     {nl:'rechtdoor',en:'straight ahead'},
+     {nl:'hier / daar',en:'here / there'},
+     {nl:'dichtbij / ver',en:'nearby / far'},
+     {nl:'het ontbijt',en:'breakfast'},
+     {nl:'de lunch',en:'lunch'},
+     {nl:'het diner',en:'dinner'},
+     {nl:'lekker',en:'tasty / nice'},
+     {nl:'gezellig',en:'cozy / sociable'},
+     {nl:'duur / goedkoop',en:'expensive / cheap'},
+     {nl:'open / dicht',en:'open / closed'},
+     {nl:'de familie',en:'the family'},
+     {nl:'het kind / de kinderen',en:'the child / the children'},
+     {nl:'de vriend / de vriendin',en:'friend / girlfriend or female friend'},
+     {nl:'de collega',en:'the colleague'},
+     {nl:'vandaag / morgen / gisteren',en:'today / tomorrow / yesterday'},
+     {nl:'altijd / soms / nooit',en:'always / sometimes / never'},
+     {nl:'snel / langzaam',en:'fast / slow'},
+     {nl:'mooi',en:'beautiful'},
+     {nl:'leuk',en:'fun / nice'},
+     {nl:'druk',en:'busy'}
+   ]},
+  {id:'b1verbs', name:'B1 Verbs in Action', lvl:'B1', desc:'High-frequency verbs, perfect tense',
+   cards:[
+     {nl:'gaan / ging / gegaan',en:'to go (uses zijn)'},
+     {nl:'komen / kwam / gekomen',en:'to come (uses zijn)'},
+     {nl:'doen / deed / gedaan',en:'to do'},
+     {nl:'maken / maakte / gemaakt',en:'to make'},
+     {nl:'zien / zag / gezien',en:'to see'},
+     {nl:'horen / hoorde / gehoord',en:'to hear'},
+     {nl:'weten / wist / geweten',en:'to know (a fact)'},
+     {nl:'kennen / kende / gekend',en:'to know (a person)'},
+     {nl:'denken / dacht / gedacht',en:'to think'},
+     {nl:'zeggen / zei / gezegd',en:'to say'},
+     {nl:'vragen / vroeg / gevraagd',en:'to ask'},
+     {nl:'antwoorden',en:'to answer'},
+     {nl:'beginnen / begon / begonnen',en:'to begin (uses zijn)'},
+     {nl:'eindigen',en:'to end'},
+     {nl:'helpen / hielp / geholpen',en:'to help'},
+     {nl:'kiezen / koos / gekozen',en:'to choose'},
+     {nl:'blijven / bleef / gebleven',en:'to stay (uses zijn)'},
+     {nl:'reizen / reisde / gereisd',en:'to travel (uses zijn)'},
+     {nl:'bezoeken / bezocht / bezocht',en:'to visit'},
+     {nl:'ontmoeten / ontmoette / ontmoet',en:'to meet'}
+   ]},
+  {id:'b2conn', name:'B2 Connectors', lvl:'B2', desc:'Glue words for arguments',
+   cards:[
+     {nl:'omdat',en:'because (subordinating &rarr; verb to end)'},
+     {nl:'want',en:'because (coordinating &rarr; normal order)'},
+     {nl:'daarom',en:'therefore'},
+     {nl:'maar',en:'but'},
+     {nl:'echter',en:'however (formal)'},
+     {nl:'toch',en:'still / yet / nevertheless'},
+     {nl:'dus',en:'so / thus'},
+     {nl:'bovendien',en:'moreover'},
+     {nl:'desondanks',en:'nevertheless'},
+     {nl:'enerzijds&hellip;anderzijds',en:'on one hand&hellip;on the other'},
+     {nl:'tenzij',en:'unless'},
+     {nl:'mits',en:'provided that'},
+     {nl:'hoewel',en:'although'},
+     {nl:'terwijl',en:'while / whereas'},
+     {nl:'zodat',en:'so that'}
+   ]},
+  {id:'c1biz', name:'C1 Business Vocabulary', lvl:'C1', desc:'Investment, contracts, manufacturing',
+   cards:[
+     {nl:'de investering',en:'the investment'},
+     {nl:'de investeerder',en:'the investor'},
+     {nl:'het rendement',en:'the return (on investment)'},
+     {nl:'het kapitaal',en:'the capital'},
+     {nl:'de aandeelhouder',en:'the shareholder'},
+     {nl:'de winst / het verlies',en:'profit / loss'},
+     {nl:'de omzet',en:'the revenue'},
+     {nl:'de marge',en:'the margin'},
+     {nl:'de toeleveringsketen',en:'the supply chain'},
+     {nl:'de productiecapaciteit',en:'the production capacity'},
+     {nl:'het personeel',en:'the staff/personnel'},
+     {nl:'de werknemer',en:'the employee'},
+     {nl:'de werkgever',en:'the employer'},
+     {nl:'het contract',en:'the contract'},
+     {nl:'de overeenkomst',en:'the agreement'},
+     {nl:'de onderhandeling',en:'the negotiation'},
+     {nl:'de levering',en:'the delivery'},
+     {nl:'de termijn',en:'the deadline/term'},
+     {nl:'de subsidie',en:'the subsidy'},
+     {nl:'de belasting',en:'the tax'},
+     {nl:'de vergunning',en:'the permit/license'},
+     {nl:'de regelgeving',en:'the regulation'},
+     {nl:'de naleving',en:'compliance'},
+     {nl:'het bestuur / de raad van bestuur',en:'the board / board of directors'},
+     {nl:'de jaarrekening',en:'the annual accounts'}
+   ]},
+  {id:'falsefriend', name:'False Friends', lvl:'B2', desc:'Words that look English &mdash; but aren\'t',
+   cards:[
+     {nl:'eventueel',en:'possibly / if needed (NOT "eventually")'},
+     {nl:'actueel',en:'current / topical (NOT "actual")'},
+     {nl:'globaal',en:'roughly / approximately (NOT "global")'},
+     {nl:'controleren',en:'to check / verify (NOT "to control")'},
+     {nl:'sympathiek',en:'likeable / nice (NOT "sympathetic")'},
+     {nl:'consequent',en:'consistent (NOT "consequent")'},
+     {nl:'pretentieus',en:'pretentious (same, but used more often)'},
+     {nl:'huren',en:'to rent / hire (a thing) &mdash; not hire a person'},
+     {nl:'aanwerven / aannemen',en:'to hire (a person)'},
+     {nl:'sparen',en:'to save (money) (NOT "to spare")'},
+     {nl:'brutaal',en:'rude / cheeky (NOT "brutal")'},
+     {nl:'slim',en:'smart / clever (NOT "slim")'},
+     {nl:'meeting',en:'used as loan word, but "vergadering" is more Dutch'},
+     {nl:'pakken',en:'to grab / take (NOT "to pack" &mdash; that\'s "inpakken")'},
+     {nl:'fabriek',en:'factory (NOT "fabric")'}
+   ]},
+  {id:'idioms', name:'Idioms & Expressions', lvl:'C1', desc:'Sound less like a textbook',
+   cards:[
+     {nl:'Iets onder de knie hebben',en:'To have mastered something'},
+     {nl:'De kat uit de boom kijken',en:'To wait and see'},
+     {nl:'Met de deur in huis vallen',en:'To get straight to the point'},
+     {nl:'Knopen doorhakken',en:'To make a decision'},
+     {nl:'Op de lange baan schuiven',en:'To indefinitely postpone'},
+     {nl:'De puntjes op de i zetten',en:'To finalise the details'},
+     {nl:'Niet over één nacht ijs gaan',en:'Not to rush'},
+     {nl:'Helder',en:'Clear / understood'},
+     {nl:'Geen woorden maar daden',en:'No words but deeds (Rotterdam motto)'},
+     {nl:'Doe maar gewoon, dan doe je al gek genoeg',en:'Just act normal, that\'s crazy enough'},
+     {nl:'Iets door de vingers zien',en:'To turn a blind eye'},
+     {nl:'De koe bij de horens vatten',en:'To take the bull by the horns'},
+     {nl:'Het hoge woord eruit',en:'To finally say what you mean'},
+     {nl:'Een slag om de arm houden',en:'To keep one\'s options open'},
+     {nl:'Wie A zegt, moet ook B zeggen',en:'In for a penny, in for a pound'}
+   ]}
+];
+
+const VOCAB = [
+  // greetings
+  {nl:'Hallo',en:'Hello',topic:'greetings',lvl:'A1'},
+  {nl:'Goedemorgen',en:'Good morning',topic:'greetings',lvl:'A1'},
+  {nl:'Goedemiddag',en:'Good afternoon',topic:'greetings',lvl:'A1'},
+  {nl:'Goedenavond',en:'Good evening',topic:'greetings',lvl:'A1'},
+  {nl:'Goedendag',en:'Good day (polite)',topic:'greetings',lvl:'A1'},
+  {nl:'Welterusten',en:'Good night (sleep)',topic:'greetings',lvl:'A1'},
+  {nl:'Tot ziens',en:'Goodbye',topic:'greetings',lvl:'A1'},
+  {nl:'Tot morgen',en:'See you tomorrow',topic:'greetings',lvl:'A1'},
+  {nl:'Doei',en:'Bye (casual)',topic:'greetings',lvl:'A1'},
+  {nl:'Hoe gaat het?',en:'How are you?',topic:'greetings',lvl:'A1'},
+  {nl:'Goed, en met u?',en:'Good, and you?',topic:'greetings',lvl:'A1'},
+  {nl:'Aangenaam',en:'Pleased to meet you',topic:'greetings',lvl:'A1'},
+  {nl:'Welkom',en:'Welcome',topic:'greetings',lvl:'A1'},
+  {nl:'Hartelijk welkom',en:'Warmly welcome',topic:'greetings',lvl:'A2'},
+  // numbers
+  {nl:'een',en:'one',topic:'numbers',lvl:'A1'},
+  {nl:'twee',en:'two',topic:'numbers',lvl:'A1'},
+  {nl:'drie',en:'three',topic:'numbers',lvl:'A1'},
+  {nl:'tien',en:'ten',topic:'numbers',lvl:'A1'},
+  {nl:'twintig',en:'twenty',topic:'numbers',lvl:'A1'},
+  {nl:'honderd',en:'hundred',topic:'numbers',lvl:'A1'},
+  {nl:'duizend',en:'thousand',topic:'numbers',lvl:'A2'},
+  {nl:'miljoen',en:'million',topic:'numbers',lvl:'A2'},
+  {nl:'eerste',en:'first',topic:'numbers',lvl:'A2'},
+  {nl:'tweede',en:'second',topic:'numbers',lvl:'A2'},
+  // time
+  {nl:'maandag',en:'Monday',topic:'time',lvl:'A1'},
+  {nl:'vrijdag',en:'Friday',topic:'time',lvl:'A1'},
+  {nl:'het weekend',en:'the weekend',topic:'time',lvl:'A1'},
+  {nl:'januari',en:'January',topic:'time',lvl:'A1'},
+  {nl:'het jaar',en:'the year',topic:'time',lvl:'A1'},
+  {nl:'Hoe laat is het?',en:'What time is it?',topic:'time',lvl:'A1'},
+  {nl:'half drie',en:'half past two (2:30!)',topic:'time',lvl:'A1'},
+  {nl:'kwart over',en:'quarter past',topic:'time',lvl:'A1'},
+  {nl:'kwart voor',en:'quarter to',topic:'time',lvl:'A1'},
+  // food
+  {nl:'het brood',en:'bread',topic:'food',lvl:'A1'},
+  {nl:'de kaas',en:'cheese',topic:'food',lvl:'A1'},
+  {nl:'de koffie',en:'coffee',topic:'food',lvl:'A1'},
+  {nl:'de thee',en:'tea',topic:'food',lvl:'A1'},
+  {nl:'het water',en:'water',topic:'food',lvl:'A1'},
+  {nl:'de melk',en:'milk',topic:'food',lvl:'A1'},
+  {nl:'het bier',en:'beer',topic:'food',lvl:'A1'},
+  {nl:'het ontbijt',en:'breakfast',topic:'food',lvl:'A2'},
+  {nl:'het diner',en:'dinner',topic:'food',lvl:'A2'},
+  {nl:'Eet smakelijk!',en:'Bon appetit!',topic:'food',lvl:'A2'},
+  // travel
+  {nl:'het vliegtuig',en:'airplane',topic:'travel',lvl:'A2'},
+  {nl:'de luchthaven',en:'airport',topic:'travel',lvl:'A2'},
+  {nl:'Schiphol',en:'Amsterdam Airport',topic:'travel',lvl:'A2'},
+  {nl:'het hotel',en:'hotel',topic:'travel',lvl:'A2'},
+  {nl:'het paspoort',en:'passport',topic:'travel',lvl:'A2'},
+  {nl:'het visum',en:'visa',topic:'travel',lvl:'A2'},
+  {nl:'de OV-chipkaart',en:'public transport card',topic:'travel',lvl:'B1'},
+  {nl:'de fiets',en:'bicycle',topic:'travel',lvl:'A1'},
+  {nl:'op de fiets',en:'by bicycle',topic:'travel',lvl:'A2'},
+  // business
+  {nl:'het bedrijf',en:'the company',topic:'business',lvl:'A2'},
+  {nl:'de directeur',en:'the director',topic:'business',lvl:'A2'},
+  {nl:'de CEO',en:'the CEO',topic:'business',lvl:'A2'},
+  {nl:'de afdeling',en:'the department',topic:'business',lvl:'B1'},
+  {nl:'de fabriek',en:'the factory',topic:'business',lvl:'A2'},
+  {nl:'de productie',en:'production',topic:'business',lvl:'B1'},
+  {nl:'de export',en:'export',topic:'business',lvl:'B1'},
+  {nl:'de import',en:'import',topic:'business',lvl:'B1'},
+  {nl:'de investering',en:'investment',topic:'business',lvl:'B1'},
+  {nl:'de investeerder',en:'investor',topic:'business',lvl:'B2'},
+  {nl:'de aandeelhouder',en:'shareholder',topic:'business',lvl:'B2'},
+  {nl:'het kapitaal',en:'capital',topic:'business',lvl:'B2'},
+  {nl:'de winst',en:'profit',topic:'business',lvl:'B1'},
+  {nl:'het verlies',en:'loss',topic:'business',lvl:'B1'},
+  {nl:'de omzet',en:'revenue',topic:'business',lvl:'B2'},
+  {nl:'de marge',en:'margin',topic:'business',lvl:'B2'},
+  {nl:'de belasting',en:'tax',topic:'business',lvl:'B1'},
+  {nl:'de subsidie',en:'subsidy',topic:'business',lvl:'B2'},
+  {nl:'de vergunning',en:'permit',topic:'business',lvl:'B2'},
+  {nl:'het contract',en:'contract',topic:'business',lvl:'B1'},
+  {nl:'de overeenkomst',en:'agreement',topic:'business',lvl:'B2'},
+  {nl:'de onderhandeling',en:'negotiation',topic:'business',lvl:'B2'},
+  {nl:'de samenwerking',en:'cooperation',topic:'business',lvl:'B1'},
+  {nl:'de joint venture',en:'joint venture',topic:'business',lvl:'B2'},
+  {nl:'de toeleveringsketen',en:'supply chain',topic:'business',lvl:'C1'},
+  {nl:'de duurzaamheid',en:'sustainability',topic:'business',lvl:'B2'},
+  // meeting
+  {nl:'de vergadering',en:'the meeting',topic:'meeting',lvl:'A2'},
+  {nl:'de afspraak',en:'appointment',topic:'meeting',lvl:'A2'},
+  {nl:'de agenda',en:'agenda',topic:'meeting',lvl:'B1'},
+  {nl:'de notulen',en:'minutes (of meeting)',topic:'meeting',lvl:'B2'},
+  {nl:'het voorstel',en:'the proposal',topic:'meeting',lvl:'B1'},
+  {nl:'de presentatie',en:'presentation',topic:'meeting',lvl:'A2'},
+  {nl:'Zullen we beginnen?',en:'Shall we begin?',topic:'meeting',lvl:'B1'},
+  {nl:'Mag ik iets toevoegen?',en:'May I add something?',topic:'meeting',lvl:'B1'},
+  {nl:'Ik ben het ermee eens',en:'I agree',topic:'meeting',lvl:'B1'},
+  {nl:'Ik ben het er niet mee eens',en:'I disagree',topic:'meeting',lvl:'B1'},
+  {nl:'Laten we afronden',en:'Let\'s wrap up',topic:'meeting',lvl:'B2'},
+  {nl:'Op welke termijn?',en:'On what timeline?',topic:'meeting',lvl:'B2'},
+  {nl:'Wij komen erop terug',en:'We\'ll come back to it',topic:'meeting',lvl:'B2'},
+  // email
+  {nl:'Geachte heer / mevrouw',en:'Dear sir / madam',topic:'email',lvl:'B2'},
+  {nl:'Beste',en:'Dear (semi-formal)',topic:'email',lvl:'A2'},
+  {nl:'Met vriendelijke groet',en:'Kind regards',topic:'email',lvl:'B1'},
+  {nl:'Hoogachtend',en:'Yours faithfully (very formal)',topic:'email',lvl:'C1'},
+  {nl:'Bij voorbaat dank',en:'Thanks in advance',topic:'email',lvl:'B2'},
+  {nl:'In afwachting van uw reactie',en:'Looking forward to your reply',topic:'email',lvl:'B2'},
+  {nl:'Naar aanleiding van&hellip;',en:'With reference to&hellip;',topic:'email',lvl:'B2'},
+  {nl:'Hierbij bevestig ik&hellip;',en:'I hereby confirm&hellip;',topic:'email',lvl:'C1'},
+  {nl:'Zoals afgesproken',en:'As agreed',topic:'email',lvl:'B2'},
+  {nl:'Mocht u nog vragen hebben',en:'Should you have any questions',topic:'email',lvl:'C1'},
+  // idiom
+  {nl:'Iets onder de knie hebben',en:'To have mastered something',topic:'idiom',lvl:'C1'},
+  {nl:'De puntjes op de i zetten',en:'To finalise the details',topic:'idiom',lvl:'C1'},
+  {nl:'Knopen doorhakken',en:'To make a decision',topic:'idiom',lvl:'C1'},
+  {nl:'Helder',en:'Clear / understood',topic:'idiom',lvl:'B2'},
+  {nl:'Niet over één nacht ijs gaan',en:'Not to rush a decision',topic:'idiom',lvl:'C1'},
+  {nl:'Met de deur in huis vallen',en:'To get straight to the point',topic:'idiom',lvl:'C1'},
+  {nl:'Op de lange baan schuiven',en:'To indefinitely postpone',topic:'idiom',lvl:'C1'}
+];
+
+const SCENARIOS = [
+  {id:'distributor', title:'Meeting a Dutch Distributor in Rotterdam', tag:'biz',
+   intro:'You arrive at the office of a potential distributor. First impressions matter &mdash; default to "u", arrive 5 minutes early, and bring a small gift (sweets, not flowers).',
+   lines:[
+     {who:'You',nl:'Goedemorgen, mevrouw Jansen. Aangenaam kennis te maken.',en:'Good morning, Ms. Jansen. Pleased to meet you.'},
+     {who:'Jansen',nl:'Goedemorgen, meneer. Welkom bij ons kantoor. Wilt u koffie?',en:'Good morning, sir. Welcome to our office. Would you like coffee?'},
+     {who:'You',nl:'Graag, dank u wel. Een kopje koffie met melk, alstublieft.',en:'Yes please, thank you. A cup of coffee with milk, please.'},
+     {who:'Jansen',nl:'Zullen we beginnen met een korte introductie van uw bedrijf?',en:'Shall we begin with a short introduction of your company?'},
+     {who:'You',nl:'Zeker. Wij zijn een investeringsbureau van de overheid van Tamil Nadu. Wij faciliteren Europese investeringen in onze deelstaat.',en:'Certainly. We are an investment agency of the Tamil Nadu government. We facilitate European investments in our state.'},
+     {who:'Jansen',nl:'Helder. En welke sectoren heeft u op het oog?',en:'Clear. And which sectors do you have in mind?'},
+     {who:'You',nl:'Vooral hightech, watermanagement, en agri-food &mdash; sectoren waar Nederland sterk in is.',en:'Especially high-tech, water management, and agri-food &mdash; sectors where the Netherlands is strong.'},
+     {who:'Jansen',nl:'Dat klinkt veelbelovend. Laten wij de details bespreken.',en:'That sounds promising. Let\'s discuss the details.'}
+   ]},
+  {id:'factory', title:'Factory Tour: Dutch Investors Visit Chennai', tag:'biz',
+   intro:'A Dutch delegation has flown in to inspect a potential site. They will ask blunt questions about capacity, labour, and compliance. Have numbers ready.',
+   lines:[
+     {who:'You',nl:'Hartelijk welkom in Chennai. Hoe was uw vlucht?',en:'Warmly welcome to Chennai. How was your flight?'},
+     {who:'Visitor',nl:'Lang, maar prima. Kunnen wij meteen naar de fabriek?',en:'Long, but fine. Can we go straight to the factory?'},
+     {who:'You',nl:'Zeker. Het terrein is 12 hectare groot. De productiehal is 8.000 vierkante meter.',en:'Certainly. The site is 12 hectares. The production hall is 8,000 square meters.'},
+     {who:'Visitor',nl:'Hoeveel werknemers heeft u en wat is uw productiecapaciteit?',en:'How many employees do you have and what is your production capacity?'},
+     {who:'You',nl:'Wij hebben 450 medewerkers en een capaciteit van 2 miljoen eenheden per jaar, uitbreidbaar tot 3,5 miljoen.',en:'We have 450 employees and a capacity of 2 million units per year, expandable to 3.5 million.'},
+     {who:'Visitor',nl:'En de naleving van ESG-normen? Dat is voor ons doorslaggevend.',en:'And ESG compliance? That is decisive for us.'},
+     {who:'You',nl:'Wij zijn ISO 14001 gecertificeerd en publiceren jaarlijks een duurzaamheidsrapport.',en:'We are ISO 14001 certified and publish an annual sustainability report.'},
+     {who:'Visitor',nl:'Uitstekend. Laten wij dat in detail bekijken.',en:'Excellent. Let\'s look at that in detail.'}
+   ]},
+  {id:'pitch', title:'Investment Pitch (Formal)', tag:'biz',
+   intro:'Five minutes to convince a Dutch board. Open clearly, give numbers, end with a concrete ask.',
+   lines:[
+     {who:'You',nl:'Geachte leden van de raad, dank u voor uw tijd.',en:'Esteemed members of the board, thank you for your time.'},
+     {who:'You',nl:'Tamil Nadu is de tweede grootste economie van India en de grootste auto-exporteur van het land.',en:'Tamil Nadu is India\'s second-largest economy and the country\'s largest car exporter.'},
+     {who:'You',nl:'Bovendien biedt onze deelstaat een hooggekwalificeerde arbeidsmarkt: 600.000 ingenieurs studeren jaarlijks af.',en:'Moreover, our state offers a highly qualified labour market: 600,000 engineers graduate annually.'},
+     {who:'You',nl:'Met het oog op uw expansie in Azië bieden wij een one-stop loket voor vergunningen, subsidies en arbeidsbemiddeling.',en:'With a view to your Asia expansion, we offer a one-stop window for permits, subsidies, and labour matching.'},
+     {who:'You',nl:'Onze concrete vraag: zou u bereid zijn een delegatie te sturen voor een werkbezoek in oktober?',en:'Our concrete ask: would you be willing to send a delegation for a working visit in October?'},
+     {who:'Board',nl:'Helder voorstel. Wij komen er binnen twee weken op terug.',en:'Clear proposal. We will come back to you within two weeks.'}
+   ]},
+  {id:'email', title:'Business Email Phrases', tag:'biz',
+   intro:'Standard openings, middles, and closings. Mix and match.',
+   lines:[
+     {who:'Open',nl:'Geachte heer De Vries,',en:'Dear Mr. De Vries,'},
+     {who:'Open',nl:'Beste Anna,',en:'Dear Anna, (semi-formal)'},
+     {who:'Open',nl:'Naar aanleiding van ons gesprek van gisteren&hellip;',en:'Following up on our conversation yesterday&hellip;'},
+     {who:'Body',nl:'Hierbij bevestig ik onze afspraak voor 14 oktober.',en:'I hereby confirm our appointment for 14 October.'},
+     {who:'Body',nl:'In de bijlage vindt u het voorstel.',en:'You will find the proposal in the attachment.'},
+     {who:'Body',nl:'Zou u zo vriendelijk willen zijn om het document te ondertekenen?',en:'Would you be so kind as to sign the document?'},
+     {who:'Close',nl:'Bij voorbaat dank.',en:'Thanks in advance.'},
+     {who:'Close',nl:'In afwachting van uw reactie.',en:'Looking forward to your reply.'},
+     {who:'Close',nl:'Met vriendelijke groet,\nPrakash',en:'Kind regards,\nPrakash'}
+   ]},
+  {id:'negotiate', title:'Negotiating Contract Terms', tag:'biz',
+   intro:'Dutch negotiators are direct and data-driven. Hold the line politely; agree explicitly.',
+   lines:[
+     {who:'Them',nl:'Wij willen graag een levertijd van 60 dagen.',en:'We would like a delivery time of 60 days.'},
+     {who:'You',nl:'Dat is voor ons krap. Zou 75 dagen acceptabel zijn?',en:'That is tight for us. Would 75 days be acceptable?'},
+     {who:'Them',nl:'Hmm. Wat biedt u in ruil?',en:'Hmm. What do you offer in return?'},
+     {who:'You',nl:'Wij kunnen een prijsverlaging van 3% aanbieden bij een meerjarig contract.',en:'We can offer a 3% price reduction for a multi-year contract.'},
+     {who:'Them',nl:'Onder voorwaarde dat de kwaliteitsnormen gehaald worden, gaan wij akkoord.',en:'Provided that quality standards are met, we agree.'},
+     {who:'You',nl:'Helder. Laten wij dat in het contract vastleggen.',en:'Clear. Let\'s lock that in the contract.'},
+     {who:'Them',nl:'Akkoord. Wij zetten de puntjes op de i en sturen het door.',en:'Agreed. We\'ll finalise the details and send it over.'}
+   ]},
+  {id:'smalltalk', title:'Trade Fair Small Talk', tag:'biz',
+   intro:'You spot a Dutch booth at a trade fair. The Dutch enjoy short, direct small talk. Keep it light, get to the point in 60 seconds.',
+   lines:[
+     {who:'You',nl:'Goedemiddag. Mag ik even uw aandacht?',en:'Good afternoon. May I have your attention?'},
+     {who:'Them',nl:'Natuurlijk. Waarmee kan ik u helpen?',en:'Of course. How can I help you?'},
+     {who:'You',nl:'Ik ben van Guidance Tamil Nadu, het investeringsbureau van de deelstaat in India.',en:'I am from Guidance Tamil Nadu, the investment agency of the Indian state.'},
+     {who:'Them',nl:'O ja? En wat brengt u hier?',en:'Oh really? And what brings you here?'},
+     {who:'You',nl:'Wij zoeken Nederlandse partners in watermanagement. Heeft u tijd voor een korte demo?',en:'We are looking for Dutch partners in water management. Do you have time for a short demo?'},
+     {who:'Them',nl:'Vijf minuten? Begin maar.',en:'Five minutes? Go ahead.'},
+     {who:'You',nl:'Perfect. Hier is mijn kaartje &mdash; laten wij volgende week verder praten.',en:'Perfect. Here\'s my card &mdash; let\'s talk further next week.'}
+   ]}
+];
+
+const LVL_DESC = {
+  A1:'A1 &mdash; Greetings, numbers, basic verbs, asking for simple things. About 4 weeks of focused study.',
+  A2:'A2 &mdash; Daily life, simple past, asking and answering questions. About 8&ndash;12 weeks of focused study.',
+  B1:'B1 &mdash; Conversational fluency on familiar topics, perfect tense, modals. About 6 months.',
+  B2:'B2 &mdash; Comfortable in meetings; can argue a point. About 9&ndash;12 months.',
+  C1:'C1 &mdash; Formal register, business writing, idioms. 18+ months. You can negotiate contracts.'
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+
+const state = {
+  scr:'home',
+  lvl:localStorage.getItem('ds_lvl')||'A1',
+  lessonFilter:'ALL',
+  deck:null,
+  cardIdx:0,
+  flip:false,
+  vocabSearch:'',
+  vocabTopic:'ALL',
+  chat:[],
+  progress:JSON.parse(localStorage.getItem('ds_prog')||'{}')
+};
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+function go(scr){
+  state.scr=scr;
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.getElementById('scr-'+scr).classList.add('on');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.scr===scr));
+  if(scr==='lessons')renderLessons();
+  if(scr==='flashcards')renderDecks();
+  if(scr==='vocab'){renderVocab();renderScenarios();}
+  if(scr==='tutor')ensureTutorIntro();
+}
+
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>go(t.dataset.scr));
+});
+
+/* level pick on home */
+document.getElementById('lvlPick').addEventListener('click',e=>{
+  const b=e.target.closest('.lvl-btn');if(!b)return;
+  state.lvl=b.dataset.lvl;
+  localStorage.setItem('ds_lvl',state.lvl);
+  document.querySelectorAll('#lvlPick .lvl-btn').forEach(x=>x.classList.toggle('on',x.dataset.lvl===state.lvl));
+  document.getElementById('hdrLvl').textContent=state.lvl;
+  document.getElementById('lvlDesc').innerHTML=LVL_DESC[state.lvl];
+});
+document.getElementById('hdrLvl').addEventListener('click',()=>go('home'));
+
+/* ============================================================
+   LESSONS
+   ============================================================ */
+
+function renderLessons(){
+  const list=document.getElementById('lessonList');
+  const filtered=state.lessonFilter==='ALL'?LESSONS:LESSONS.filter(l=>l.lvl===state.lessonFilter);
+  list.innerHTML=filtered.map((l,i)=>{
+    const done=state.progress[l.id]?'done':'';
+    const num=done?'&#10003;':(i+1);
+    return `<div class="lesson-row" onclick="openLesson('${l.id}')">
+      <div class="lesson-num ${done}">${num}</div>
+      <div class="lesson-meta">
+        <div class="lesson-title">${l.title} <span class="pill ${l.lvl.toLowerCase()}">${l.lvl}</span></div>
+        <div class="lesson-focus">${l.focus}</div>
+      </div>
+      <div class="deck-go">&rsaquo;</div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('lessonLvlPick').addEventListener('click',e=>{
+  const b=e.target.closest('.lvl-btn');if(!b)return;
+  state.lessonFilter=b.dataset.lvl;
+  document.querySelectorAll('#lessonLvlPick .lvl-btn').forEach(x=>x.classList.toggle('on',x.dataset.lvl===state.lessonFilter));
+  renderLessons();
+});
+
+function openLesson(id){
+  const l=LESSONS.find(x=>x.id===id);if(!l)return;
+  document.getElementById('lessonDlgTitle').innerHTML=`${l.title} <span class="pill ${l.lvl.toLowerCase()}" style="margin-left:6px;">${l.lvl}</span>`;
+  const body=document.getElementById('lessonDlgBody');
+  body.innerHTML=`
+    <div class="card">
+      <span class="lbl">Focus</span>
+      <p>${l.focus}</p>
+    </div>
+    <div class="card">
+      <span class="lbl">Grammar / Note</span>
+      <p>${l.grammar}</p>
+    </div>
+    <div class="card">
+      <span class="lbl">Vocabulary</span>
+      ${l.vocab.map(v=>`
+        <div class="vocab-line">
+          <div>
+            <div class="vocab-nl">${v.nl}</div>
+            ${v.ipa?`<div class="vocab-ipa">${v.ipa}</div>`:''}
+            <div class="vocab-en">${v.en}</div>
+            ${v.ex?`<div class="example" style="margin-top:6px;"><div class="example-nl">${v.ex.split(' &mdash; ')[0]}</div>${v.ex.includes(' &mdash; ')?`<div class="example-en">${v.ex.split(' &mdash; ')[1]}</div>`:''}</div>`:''}
+          </div>
+          <div class="vocab-side"><button class="speak" onclick="say('${v.nl.replace(/'/g,"\\'")}')">&#9658;</button></div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="card">
+      <span class="lbl">Examples in context</span>
+      ${l.examples.map(e=>`<div class="example"><div class="example-nl">${e.nl}</div><div class="example-en">${e.en}</div></div>`).join('')}
+    </div>
+    <button class="btn alt block" onclick="markLessonDone('${l.id}')">${state.progress[l.id]?'&#10003; Completed':'Mark as Completed'}</button>
+  `;
+  document.getElementById('lessonDlg').classList.add('on');
+}
+
+function closeLesson(){document.getElementById('lessonDlg').classList.remove('on');}
+function markLessonDone(id){
+  state.progress[id]=!state.progress[id];
+  localStorage.setItem('ds_prog',JSON.stringify(state.progress));
+  closeLesson();renderLessons();
+}
+
+/* ============================================================
+   FLASHCARDS
+   ============================================================ */
+
+function renderDecks(){
+  const el=document.getElementById('deckList');
+  el.innerHTML=DECKS.map(d=>`
+    <div class="deck-row" onclick="openDeck('${d.id}')">
+      <div class="deck-meta">
+        <h4>${d.name} <span class="pill ${d.lvl.toLowerCase()}">${d.lvl}</span></h4>
+        <p>${d.desc} &middot; ${d.cards.length} cards</p>
+      </div>
+      <div class="deck-go">&rsaquo;</div>
+    </div>
+  `).join('');
+}
+
+function openDeck(id){
+  state.deck=DECKS.find(d=>d.id===id);
+  state.cardIdx=0;state.flip=false;
+  document.getElementById('deckScroll').style.display='none';
+  document.getElementById('fcWrap').style.display='flex';
+  drawCard();
+}
+function closeDeck(){
+  state.deck=null;
+  document.getElementById('deckScroll').style.display='flex';
+  document.getElementById('fcWrap').style.display='none';
+}
+
+function drawCard(){
+  if(!state.deck)return;
+  const c=state.deck.cards[state.cardIdx];
+  document.getElementById('fcCard').classList.remove('flip');
+  state.flip=false;
+  document.getElementById('fcDeck').textContent=state.deck.name;
+  document.getElementById('fcFront').innerHTML=c.nl;
+  document.getElementById('fcIpa').innerHTML=c.ipa||'';
+  document.getElementById('fcBackEn').innerHTML=c.en;
+  document.getElementById('fcBackEx').innerHTML=c.ex||'';
+  document.getElementById('fcHint').textContent='Tap to flip';
+  document.getElementById('fcCount').textContent=(state.cardIdx+1)+' / '+state.deck.cards.length;
+  document.getElementById('fcBar').style.width=(100*(state.cardIdx)/state.deck.cards.length)+'%';
+}
+
+function flipCard(){
+  state.flip=!state.flip;
+  document.getElementById('fcCard').classList.toggle('flip',state.flip);
+  document.getElementById('fcHint').textContent=state.flip?'Tap to flip back':'Tap to flip';
+}
+
+function markCard(known){
+  if(!state.deck)return;
+  if(state.cardIdx<state.deck.cards.length-1){
+    state.cardIdx++;drawCard();
+  }else{
+    document.getElementById('fcBar').style.width='100%';
+    document.getElementById('fcCard').innerHTML=`
+      <span class="lbl">Deck complete</span>
+      <div style="font-size:42px;">&#127881;</div>
+      <div style="font-size:18px;font-weight:700;margin-top:10px;">${state.deck.name}</div>
+      <div class="sub" style="margin-top:6px;">${state.deck.cards.length} cards reviewed</div>
+      <button class="btn alt small" onclick="event.stopPropagation();state.cardIdx=0;drawCard();" style="margin-top:14px;">Restart</button>
+    `;
+  }
+}
+
+/* ============================================================
+   VOCAB
+   ============================================================ */
+
+function renderVocab(){
+  const q=state.vocabSearch.toLowerCase().trim();
+  const topic=state.vocabTopic;
+  const filtered=VOCAB.filter(v=>{
+    if(topic!=='ALL'&&v.topic!==topic)return false;
+    if(!q)return true;
+    return v.nl.toLowerCase().includes(q)||v.en.toLowerCase().includes(q);
+  });
+  const el=document.getElementById('vocabList');
+  if(filtered.length===0){
+    el.innerHTML=`<p class="muted">No matches. Try another word or topic.</p>`;return;
+  }
+  el.innerHTML=filtered.map(v=>`
+    <div class="vocab-line">
+      <div>
+        <div class="vocab-nl">${v.nl}</div>
+        <div class="vocab-en">${v.en} <span class="pill ${v.lvl.toLowerCase()}" style="margin-left:4px;">${v.lvl}</span></div>
+      </div>
+      <div class="vocab-side"><button class="speak" onclick="say('${v.nl.replace(/'/g,"\\'")}')">&#9658;</button></div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('vocabSearch').addEventListener('input',e=>{state.vocabSearch=e.target.value;renderVocab();});
+document.getElementById('vocabChips').addEventListener('click',e=>{
+  const c=e.target.closest('.chip');if(!c)return;
+  state.vocabTopic=c.dataset.topic;
+  document.querySelectorAll('#vocabChips .chip').forEach(x=>x.classList.toggle('on',x.dataset.topic===state.vocabTopic));
+  renderVocab();
+});
+
+/* ============================================================
+   SCENARIOS
+   ============================================================ */
+
+function renderScenarios(){
+  const el=document.getElementById('scenarioList');
+  el.innerHTML=SCENARIOS.map(s=>`
+    <div class="deck-row" onclick="openScenario('${s.id}')">
+      <div class="deck-meta">
+        <h4>${s.title} <span class="pill biz">Biz</span></h4>
+        <p>${s.lines.length} lines &middot; tap to open</p>
+      </div>
+      <div class="deck-go">&rsaquo;</div>
+    </div>
+  `).join('');
+}
+
+function openScenario(id){
+  const s=SCENARIOS.find(x=>x.id===id);if(!s)return;
+  document.getElementById('scenarioDlgTitle').textContent=s.title;
+  document.getElementById('scenarioDlgBody').innerHTML=`
+    <div class="card">
+      <span class="lbl">Context</span>
+      <p>${s.intro}</p>
+    </div>
+    <div class="card">
+      <span class="lbl">Dialogue</span>
+      ${s.lines.map((l,i)=>`
+        <div class="scenario-line ${i%2===0?'a':'b'}">
+          <div class="sl-speaker">${l.who}</div>
+          <div class="sl-nl">${l.nl}</div>
+          <div class="sl-en">${l.en}</div>
+          <button class="speak" style="margin-top:6px;" onclick="say('${l.nl.replace(/'/g,"\\'").replace(/<[^>]+>/g,'')}')">&#9658; Hear</button>
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn alt block" onclick="readScenario('${s.id}')">&#9658; Read whole dialogue</button>
+  `;
+  document.getElementById('scenarioDlg').classList.add('on');
+}
+function closeScenario(){document.getElementById('scenarioDlg').classList.remove('on');}
+
+function readScenario(id){
+  const s=SCENARIOS.find(x=>x.id===id);if(!s)return;
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  s.lines.forEach(l=>{
+    const u=new SpeechSynthesisUtterance(l.nl.replace(/<[^>]+>/g,''));
+    u.lang='nl-NL';
+    window.speechSynthesis.speak(u);
+  });
+}
+
+/* ============================================================
+   SPEECH
+   ============================================================ */
+
+function say(text){
+  if(!window.speechSynthesis){alert('Your browser does not support speech synthesis.');return;}
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='nl-NL';
+  u.rate=0.95;
+  window.speechSynthesis.speak(u);
+}
+
+/* ============================================================
+   TUTOR
+   ============================================================ */
+
+function ensureTutorIntro(){
+  if(state.chat.length>0)return;
+  pushBot(`Hallo! I'm your Dutch tutor. <br><br>Ask me to translate phrases, explain grammar, or roleplay business scenarios. <br><br>Examples: <i>"How do I say good morning?"</i> &middot; <i>"Translate: We agree to your terms"</i> &middot; <i>"u vs jij?"</i> <br><br>Without an API key I use a built-in rule-based engine. To get a real conversational tutor, tap &#9881; <b>Settings</b> below and add a Claude API key.`);
+}
+
+function pushUser(text){
+  state.chat.push({role:'user',content:text});
+  const m=document.createElement('div');m.className='msg user';m.textContent=text;
+  document.getElementById('chatScroll').appendChild(m);
+  scrollChat();
+}
+function pushBot(html){
+  state.chat.push({role:'bot',content:html});
+  const m=document.createElement('div');m.className='msg bot';m.innerHTML=html;
+  document.getElementById('chatScroll').appendChild(m);
+  scrollChat();
+}
+function pushSys(text){
+  const m=document.createElement('div');m.className='msg sys';m.textContent=text;
+  document.getElementById('chatScroll').appendChild(m);
+  scrollChat();
+}
+function scrollChat(){
+  const el=document.getElementById('chatScroll');
+  el.scrollTop=el.scrollHeight;
+}
+
+function askQuick(q){
+  if(q==='settings'){openSet();return;}
+  document.getElementById('chatInput').value=q;
+  sendChat();
+}
+
+document.getElementById('chatInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}
+});
+
+async function sendChat(){
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  pushUser(text);
+  const key=localStorage.getItem('ds_apikey');
+  if(key){
+    await callClaude(text,key);
+  }else{
+    const reply=ruleBasedReply(text);
+    setTimeout(()=>pushBot(reply),250);
+  }
+}
+
+/* ---- rule-based engine ---- */
+function ruleBasedReply(text){
+  const t=text.toLowerCase();
+  // direct lookups
+  const lookups=[
+    ['good morning','<span class="nl">Goedemorgen</span> <span class="ipa">/&#660;ud&#601;&#712;m&#596;r&#660;&#601;/</span> &mdash; Good morning. Use until ~10am.'],
+    ['good afternoon','<span class="nl">Goedemiddag</span> &mdash; Good afternoon. Roughly noon to 6pm.'],
+    ['good evening','<span class="nl">Goedenavond</span> &mdash; Good evening. After ~6pm.'],
+    ['good night','<span class="nl">Welterusten</span> &mdash; Good night (before sleep). <span class="nl">Goedenacht</span> is also possible but less common.'],
+    ['hello','<span class="nl">Hallo</span> (any time) &middot; <span class="nl">Hoi</span> (casual) &middot; <span class="nl">Goedendag</span> (polite).'],
+    ['goodbye','<span class="nl">Tot ziens</span> (standard) &middot; <span class="nl">Doei</span> (casual) &middot; <span class="nl">Dag</span> (very casual).'],
+    ['thank you','<span class="nl">Dank u wel</span> (formal) &middot; <span class="nl">Dank je wel</span> (informal) &middot; <span class="nl">Bedankt</span> (everyday).'],
+    ['please','Dutch has no exact "please". Use <span class="nl">alsjeblieft</span> (informal) or <span class="nl">alstublieft</span> (formal). Also doubles as "here you go" when handing something over.'],
+    ['sorry','<span class="nl">Sorry</span> (yes, same word!) &middot; <span class="nl">Pardon</span> &middot; <span class="nl">Mijn excuses</span> (formal).'],
+    ['yes','<span class="nl">Ja</span> &mdash; yes.'],
+    ['no','<span class="nl">Nee</span> &mdash; no.'],
+    ['how are you','<span class="nl">Hoe gaat het?</span> (informal) or <span class="nl">Hoe gaat het met u?</span> (formal). Reply: <span class="nl">Goed, dank u, en met u?</span>'],
+    ['nice to meet you','<span class="nl">Aangenaam kennis te maken</span> &mdash; literally "pleasant to make acquaintance". Or just <span class="nl">Aangenaam</span>.'],
+    ['my name is','<span class="nl">Ik heet&hellip;</span> or <span class="nl">Mijn naam is&hellip;</span> Example: <i>Ik heet Prakash.</i>'],
+    ['where are you from','<span class="nl">Waar komt u vandaan?</span> (formal) &middot; <span class="nl">Waar kom je vandaan?</span> (informal). Reply: <span class="nl">Ik kom uit India.</span>'],
+    ['from india','<span class="nl">Ik kom uit India.</span> &mdash; I am from India.'],
+    ['we agree','<span class="nl">Wij zijn akkoord</span> or <span class="nl">Wij gaan akkoord</span> &mdash; We agree.'],
+    ['we agree to your terms','<span class="nl">Wij gaan akkoord met uw voorwaarden.</span> &mdash; formal, contract-ready.'],
+    ['shall we begin','<span class="nl">Zullen we beginnen?</span> &mdash; common meeting opener.'],
+    ['what is your name','<span class="nl">Hoe heet u?</span> (formal) &middot; <span class="nl">Hoe heet je?</span> (informal).'],
+    ['do you speak english','<span class="nl">Spreekt u Engels?</span> Almost everyone in the Netherlands will answer "yes" &mdash; but starting in Dutch is appreciated.'],
+    ['i don\'t understand','<span class="nl">Ik begrijp het niet</span> &middot; or <span class="nl">Ik versta het niet.</span>'],
+    ['can you repeat','<span class="nl">Kunt u dat herhalen?</span> (formal).'],
+    ['how much','<span class="nl">Hoeveel kost het?</span> &mdash; How much does it cost?'],
+    ['where is','<span class="nl">Waar is&hellip;?</span> Example: <span class="nl">Waar is het station?</span>'],
+    ['the bill','<span class="nl">De rekening, alstublieft.</span> &mdash; The bill, please.'],
+    ['delicious','<span class="nl">Heerlijk</span> or <span class="nl">Lekker</span>.']
+  ];
+  for(const [k,v] of lookups){
+    if(t.includes(k))return v;
+  }
+
+  // grammar Q&A
+  if(t.includes('u vs jij')||t.includes('u or jij')||t.includes('u versus jij')||(t.includes(' u ')&&t.includes('jij'))){
+    return `<b>u</b> = formal "you" (older people, business contacts, anyone you haven\'t been invited to first-name).<br><b>jij/je</b> = informal "you" (friends, family, peers, kids).<br><br>In Dutch business meetings, <b>default to u</b>. They will often say <i>"je mag me tutoyeren"</i> ("you may use jij with me") &mdash; that\'s your invitation to switch. Until then, u.`;
+  }
+  if(t.includes('de or het')||t.includes('de vs het')||t.includes('de en het')){
+    return `Roughly 75% of Dutch nouns are <b>de</b>-words, 25% are <b>het</b>-words. Rules of thumb:<br>&middot; All plurals are <b>de</b>.<br>&middot; All diminutives (-je) are <b>het</b>.<br>&middot; Most abstract nouns ending -heid, -ing, -tie are <b>de</b>.<br>&middot; Most languages, materials, infinitives-as-nouns are <b>het</b>.<br><br>Otherwise, memorise per word. When in doubt, say <b>de</b> &mdash; you\'ll be right more often.`;
+  }
+  if(t.includes('word order')||t.includes('v2')){
+    return `Dutch word order rule #1: in a main clause, the <b>finite verb is in 2nd position</b>. Anything can come first &mdash; subject, time word, object &mdash; but the verb is always slot 2.<br><br><i>Ik ga morgen naar Amsterdam.</i><br><i>Morgen ga ik naar Amsterdam.</i><br><i>Naar Amsterdam ga ik morgen.</i><br><br>In a subordinate clause (after <b>dat, omdat, als, hoewel</b>), the verb goes to the end: <i>&hellip;omdat ik morgen naar Amsterdam ga.</i>`;
+  }
+  if(t.includes('perfect tense')||t.includes('past tense')||t.includes('voltooid')){
+    return `Dutch perfect tense = <b>hebben/zijn + past participle</b>. The participle goes to the end.<br><br>Most verbs use <i>hebben</i>. Movement & state-change use <i>zijn</i>: <b>gaan, komen, blijven, worden, beginnen</b>.<br><br>Regular participle: <b>ge + stem + t/d</b>. Examples:<br>&middot; werken &rarr; <i>Ik heb gewerkt.</i><br>&middot; gaan &rarr; <i>Ik ben gegaan.</i><br>&middot; zien &rarr; <i>Ik heb gezien.</i> (irregular)`;
+  }
+  if(t.includes('practice') && (t.includes('coffee')||t.includes('koffie'))){
+    return `Let\'s roleplay ordering coffee. <br><br>Try this:<br>&middot; <span class="nl">Goedemorgen. Een kopje koffie, alstublieft.</span><br>&middot; <span class="nl">Met melk en suiker?</span><br>&middot; <span class="nl">Alleen melk, dank u.</span><br>&middot; <span class="nl">Dat is twee euro vijftig.</span><br>&middot; <span class="nl">Alstublieft. Dank u wel.</span><br><br>Now type any of these in Dutch and I\'ll tell you if it\'s natural.`;
+  }
+  if(t.includes('business phrase')||t.includes('biz phrase')||t.includes('5 business')||t.includes('five business')){
+    return `Five business phrases to start any meeting with confidence:<br><br>1. <span class="nl">Zullen we beginnen?</span> &mdash; Shall we begin?<br>2. <span class="nl">Mag ik mij even voorstellen?</span> &mdash; May I introduce myself?<br>3. <span class="nl">Naar aanleiding van uw e-mail&hellip;</span> &mdash; Following up on your email&hellip;<br>4. <span class="nl">Helder. Laten wij dat vastleggen.</span> &mdash; Clear. Let\'s lock that in.<br>5. <span class="nl">Wij komen er binnen een week op terug.</span> &mdash; We\'ll come back to it within a week.`;
+  }
+
+  // translation requests
+  if(t.startsWith('translate')||t.includes('how do i say')||t.includes('how to say')){
+    // try a vocab lookup
+    const after=text.replace(/^.*?(translate:?|how do i say|how to say)/i,'').trim().replace(/^["']|["']$/g,'').replace(/\?$/,'');
+    const hit=VOCAB.find(v=>v.en.toLowerCase()===after.toLowerCase()||v.nl.toLowerCase()===after.toLowerCase());
+    if(hit){
+      return `<span class="nl">${hit.nl}</span> &mdash; ${hit.en}. <span class="pill ${hit.lvl.toLowerCase()}">${hit.lvl}</span>`;
+    }
+    return `I can\'t translate that exact phrase from my offline dictionary. For real translations, add a Claude API key in <b>Settings</b> (tap &#9881; below). My built-in engine handles common greetings, business phrases, and grammar questions &mdash; try one of the suggestion chips.`;
+  }
+
+  // vocab search
+  const hit=VOCAB.find(v=>v.en.toLowerCase().includes(t)||v.nl.toLowerCase().includes(t));
+  if(hit&&t.length>3){
+    return `Found in vocab library:<br><br><span class="nl">${hit.nl}</span> &mdash; ${hit.en} <span class="pill ${hit.lvl.toLowerCase()}">${hit.lvl}</span> &middot; <i>${hit.topic}</i>`;
+  }
+
+  return `I don\'t have an offline answer for that one. Try:<br>&middot; "How do I say [phrase]?"<br>&middot; "Translate: [English]"<br>&middot; "u vs jij?" / "word order?" / "perfect tense?"<br>&middot; Or add a Claude API key in &#9881; Settings for unlimited tutoring.`;
+}
+
+/* ---- optional Claude API ---- */
+async function callClaude(userText,key){
+  const sys=`You are a friendly Dutch language tutor for an Indian business professional (VP at Tamil Nadu's investment-promotion agency). They are learning Dutch for delegation meetings with Netherlands counterparts.
+
+Style:
+- Always show the Dutch sentence in bold, then a short English gloss.
+- For longer answers, use short bullets.
+- If they ask grammar, give the rule in 2-3 sentences with one example.
+- Default to formal register (u, uw) for business contexts.
+- Be warm but concise. Keep replies under 120 words.
+- If they make a mistake in Dutch, correct gently and explain why.
+
+Output plain text with simple HTML allowed: <b>, <i>, <br>, <span class="nl"> for Dutch words.`;
+
+  const messages=state.chat.filter(m=>m.role==='user'||m.role==='bot').slice(-10).map(m=>({
+    role:m.role==='bot'?'assistant':'user',
+    content:m.role==='bot'?stripHtml(m.content):m.content
+  }));
+  // ensure last is user; if duplicated, that's fine
+  pushSys('Asking Claude...');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':key,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:600,
+        system:sys,
+        messages:messages
+      })
+    });
+    document.querySelectorAll('.msg.sys').forEach(n=>n.remove());
+    if(!res.ok){
+      const err=await res.text();
+      pushBot(`<b>API error.</b> Status ${res.status}. <br><br>${err.slice(0,200)}<br><br>Falling back to offline engine:<br><br>${ruleBasedReply(userText)}`);
+      return;
+    }
+    const data=await res.json();
+    const reply=(data.content&&data.content[0]&&data.content[0].text)||'(no reply)';
+    pushBot(reply.replace(/\n/g,'<br>'));
+  }catch(e){
+    document.querySelectorAll('.msg.sys').forEach(n=>n.remove());
+    pushBot(`<b>Network or CORS error.</b> ${e.message}.<br><br>This page must be opened via http(s):// for the API to work from the browser (file:// won\'t work in some browsers). Try opening from a local server, or use the offline engine:<br><br>${ruleBasedReply(userText)}`);
+  }
+}
+
+function stripHtml(s){const d=document.createElement('div');d.innerHTML=s;return d.textContent||'';}
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+
+function openSet(){
+  const k=localStorage.getItem('ds_apikey');
+  document.getElementById('apiKey').value=k||'';
+  document.getElementById('keyStatus').textContent=k?'Key saved.':'No key set.';
+  document.getElementById('setDlg').classList.add('on');
+}
+function closeSet(){document.getElementById('setDlg').classList.remove('on');}
+function saveKey(){
+  const k=document.getElementById('apiKey').value.trim();
+  if(!k){clearKey();return;}
+  localStorage.setItem('ds_apikey',k);
+  document.getElementById('keyStatus').textContent='Saved.';
+}
+function clearKey(){
+  localStorage.removeItem('ds_apikey');
+  document.getElementById('apiKey').value='';
+  document.getElementById('keyStatus').textContent='Cleared.';
+}
+function resetProgress(){
+  if(!confirm('Reset all lesson progress and flashcard state?'))return;
+  localStorage.removeItem('ds_prog');
+  state.progress={};
+  renderLessons();
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+
+document.getElementById('hdrLvl').textContent=state.lvl;
+document.querySelectorAll('#lvlPick .lvl-btn').forEach(x=>x.classList.toggle('on',x.dataset.lvl===state.lvl));
+document.getElementById('lvlDesc').innerHTML=LVL_DESC[state.lvl];
+renderLessons();
+renderDecks();
+renderVocab();
+renderScenarios();
+
+</script>
+
+</body>
+</html>
