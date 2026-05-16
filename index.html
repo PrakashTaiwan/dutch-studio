@@ -1434,9 +1434,11 @@ function readScenario(id){
   const s=SCENARIOS.find(x=>x.id===id);if(!s)return;
   if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
+  const v=_dutchVoice||pickDutchVoice();
   s.lines.forEach(l=>{
     const u=new SpeechSynthesisUtterance(l.nl.replace(/<[^>]+>/g,''));
     u.lang='nl-NL';
+    if(v)u.voice=v;
     window.speechSynthesis.speak(u);
   });
 }
@@ -1445,12 +1447,32 @@ function readScenario(id){
    SPEECH
    ============================================================ */
 
+let _dutchVoice=null;
+function pickDutchVoice(){
+  if(!window.speechSynthesis)return null;
+  const voices=window.speechSynthesis.getVoices();
+  if(!voices||voices.length===0)return null;
+  const nl=voices.filter(v=>(v.lang||'').toLowerCase().startsWith('nl'));
+  if(nl.length===0)return null;
+  const femaleHints=/(ellen|daphne|hanna|saskia|femke|lotte|fenna|claire|laura|female)/i;
+  const maleHints=/(xander|frank|martin|martijn|male)/i;
+  const female=nl.find(v=>femaleHints.test(v.name));
+  const notMale=nl.find(v=>!maleHints.test(v.name));
+  return female||notMale||nl[0];
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=()=>{_dutchVoice=pickDutchVoice();};
+  _dutchVoice=pickDutchVoice();
+}
+
 function say(text){
   if(!window.speechSynthesis){alert('Your browser does not support speech synthesis.');return;}
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
   u.lang='nl-NL';
   u.rate=0.95;
+  const v=_dutchVoice||pickDutchVoice();
+  if(v)u.voice=v;
   window.speechSynthesis.speak(u);
 }
 
