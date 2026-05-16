@@ -804,6 +804,47 @@ const LESSONS = [
    ]}
 ];
 
+/* Reading passages keyed by lesson id. Only B1+ gets these &mdash;
+   short paragraphs in business context to give each level distinct weight. */
+const READINGS = {
+  'b1-1':{title:'Vorige week &mdash; A meeting recap',
+   nl:'Vorige week heb ik een belangrijke afspraak gehad met een Nederlandse delegatie uit Eindhoven. Wij hebben drie uur lang gesproken over hun mogelijke investering in Tamil Nadu. Zij zijn naar onze fabriek gegaan en hebben de productiehal bezocht. Daarna hebben wij samen gegeten in een lokaal restaurant. De delegatie heeft besloten om in juli terug te komen voor de contractbespreking.',
+   en:'Last week I had an important meeting with a Dutch delegation from Eindhoven. We spoke for three hours about their possible investment in Tamil Nadu. They went to our factory and visited the production hall. After that we ate together at a local restaurant. The delegation decided to come back in July for the contract discussion.'},
+  'b1-2':{title:'Een voorstel &mdash; Making a proposal',
+   nl:'Wij willen graag samenwerken met uw bedrijf. U kunt rekenen op onze volledige ondersteuning bij vergunningen, personeel en lokale partners. Wij moeten wel eerst de financi&euml;le details bespreken. Mag ik voorstellen dat wij volgende week een videogesprek plannen? Onze CEO zou ook graag aanwezig zijn. Zullen wij donderdagochtend om tien uur Indiase tijd afspreken?',
+   en:'We would like to cooperate with your company. You can count on our full support for permits, personnel, and local partners. We do need to discuss the financial details first. May I propose that we plan a video call next week? Our CEO would also like to be present. Shall we agree on Thursday morning at ten o\'clock Indian time?'},
+  'b1-3':{title:'Tamil Nadu &mdash; A subordinate-clause workout',
+   nl:'In Zuid-India ligt Tamil Nadu, een deelstaat van bijna 80 miljoen inwoners. Hoewel de economie snel groeit, blijft de levensstandaard betaalbaar. Omdat de overheid actief investeerders steunt, kiezen veel Europese bedrijven onze regio. Wanneer u onze deelstaat bezoekt, ziet u moderne fabrieken naast historische tempels. Als u meer wilt weten, kunt u contact opnemen met ons bureau.',
+   en:'In South India lies Tamil Nadu, a state of almost 80 million inhabitants. Although the economy grows fast, the standard of living remains affordable. Because the government actively supports investors, many European companies choose our region. When you visit our state, you see modern factories next to historic temples. If you want to know more, you can contact our agency.'},
+  'b1-4':{title:'Telefoongesprek &mdash; A phone call',
+   nl:'Goedemorgen, ik bel u op namens Guidance Tamil Nadu. Wij willen u graag uitnodigen voor een werkbezoek in oktober. Onze delegatie komt op de tiende aan in Amsterdam. Zou u dat in uw agenda kunnen opnemen? Wij sturen morgen het programma door. Mocht u nog vragen hebben, dan kunt u altijd terugbellen.',
+   en:'Good morning, I am calling you on behalf of Guidance Tamil Nadu. We would like to invite you for a working visit in October. Our delegation arrives on the tenth in Amsterdam. Could you fit that into your agenda? We\'ll send through the program tomorrow. Should you still have questions, you can always call back.'},
+  'b2-1':{title:'Tamil Nadu\'s groei &mdash; Twenty years of growth',
+   nl:'Twintig jaar geleden was Tamil Nadu vooral bekend om textielproductie en filmsterren. De economie groeide langzaam en de internationale aanwezigheid was beperkt. Toen kwamen de eerste grote investeringen in de auto-industrie: Hyundai bouwde een fabriek bij Chennai, en Nokia kwam kort daarna. Vanaf 2010 versnelde de groei sterk. Bedrijven uit Japan, Korea en Duitsland kozen onze regio, omdat de arbeidsmarkt zowel betaalbaar als hoogopgeleid was.',
+   en:'Twenty years ago Tamil Nadu was mainly known for textile production and film stars. The economy grew slowly and international presence was limited. Then came the first large investments in the auto industry: Hyundai built a factory near Chennai, and Nokia came shortly after. From 2010 the growth accelerated strongly. Companies from Japan, Korea, and Germany chose our region because the labour market was both affordable and well-educated.'},
+  'b2-2':{title:'Beleefd verzoek &mdash; A polite request',
+   nl:'Geachte heer Van der Berg, naar aanleiding van ons gesprek zou ik u graag een uitgebreid voorstel willen sturen. Het zou prettig zijn als wij volgende week konden afspreken om de details te bespreken. Zou u eventueel woensdag om twee uur beschikbaar zijn? Mocht dat niet uitkomen, zouden wij ook donderdag of vrijdag kunnen plannen. Ik zou het waarderen als u mij uw voorkeur kon laten weten.',
+   en:'Dear Mr. Van der Berg, following our conversation I would gladly send you a detailed proposal. It would be nice if we could meet next week to discuss the details. Would you possibly be available Wednesday at two o\'clock? Should that not work out, we could also plan Thursday or Friday. I would appreciate it if you could let me know your preference.'},
+  'b2-3':{title:'Persbericht &mdash; A press release',
+   nl:'Een nieuwe samenwerking tussen Guidance Tamil Nadu en het Nederlandse bedrijf AquaTech BV is vandaag bekendgemaakt. Een fabriek voor waterzuiveringsinstallaties wordt gebouwd in Sriperumbudur. Het project wordt gefinancierd door beide partijen en wordt uitgevoerd over een periode van twee jaar. Er worden tweehonderd banen gecre&euml;erd. De eerste steen wordt in september gelegd door de minister van Industrie.',
+   en:'A new cooperation between Guidance Tamil Nadu and the Dutch company AquaTech BV was announced today. A factory for water-purification installations is being built in Sriperumbudur. The project is financed by both parties and is being executed over a period of two years. Two hundred jobs are being created. The first stone will be laid in September by the Minister of Industry.'},
+  'b2-4':{title:'Servicegesprek &mdash; Diminutives in action',
+   nl:'"Een momentje, ik kijk het even voor u na. Heeft u een vraagje over de factuur? Ja, ik zie dat er een kleinigheidje is misgegaan met het bedrag. Ik stuur u zo een correctiebriefje. Mag ik nog een dingetje vragen? Wilt u onze nieuwsbrief ontvangen? Even een minuutje, dan ben ik klaar. Bedankt voor uw geduldje!"',
+   en:'"Just a moment, I\'ll check it for you. Do you have a (little) question about the invoice? Yes, I see a tiny something went wrong with the amount. I\'ll send you a correction note shortly. May I ask another little thing? Would you like our newsletter? Just a minute and I\'m done. Thanks for your (little bit of) patience!"'},
+  'c1-1':{title:'Volledige zakenbrief &mdash; A full business letter',
+   nl:'Geachte heer De Vries,<br><br>Naar aanleiding van ons constructieve gesprek van vorige week zend ik u hierbij het bijgewerkte voorstel. Zoals afgesproken bevat het document de aangepaste leveringscondities en het herziene tijdspad voor de productieopstart in het derde kwartaal.<br><br>Mocht u op- of aanmerkingen hebben, dan verneem ik die graag uiterlijk vrijdag aanstaande. Bij voorbaat dank voor uw aandacht.<br><br>In afwachting van uw reactie verblijf ik,<br><br>Met vriendelijke groet,<br>Prakash Egamore<br>Vice-President, Guidance Tamil Nadu',
+   en:'Dear Mr. De Vries,<br><br>Following our constructive conversation last week, I hereby send you the updated proposal. As agreed, the document contains the adjusted delivery conditions and the revised timeline for the production start in the third quarter.<br><br>Should you have any remarks, I would gladly hear them by Friday next at the latest. Thanks in advance for your attention.<br><br>Awaiting your reply, I remain,<br><br>Kind regards,<br>Prakash Egamore<br>Vice-President, Guidance Tamil Nadu'},
+  'c1-2':{title:'Argumentatie &mdash; A structured argument',
+   nl:'Tamil Nadu biedt enerzijds een hooggekwalificeerde arbeidsmarkt en anderzijds aanzienlijke kostenvoordelen ten opzichte van Europa. Bovendien beschikt de deelstaat over uitstekende infrastructuur en een actief beleid om buitenlandse investeerders te ondersteunen. Desondanks moet men erkennen dat sommige uitdagingen blijven bestaan, met name op het gebied van bureaucratie. Derhalve adviseren wij om de samenwerking met een lokale partner aan te gaan, mits deze ervaring heeft met internationale projecten. Naarmate het project vordert, zal de complexiteit toenemen; tenzij de juiste voorbereidingen worden getroffen, kan dit tot vertraging leiden.',
+   en:'Tamil Nadu offers on one hand a highly qualified labour market and on the other significant cost advantages compared to Europe. Moreover, the state possesses excellent infrastructure and an active policy to support foreign investors. Nevertheless, one must acknowledge that some challenges remain, particularly in the area of bureaucracy. Therefore, we advise entering the cooperation with a local partner, provided they have experience with international projects. As the project progresses, complexity will increase; unless the right preparations are taken, this can lead to delay.'},
+  'c1-3':{title:'Onderhandeling &mdash; Negotiation, idiom-heavy',
+   nl:'De onderhandelingen verliepen niet altijd soepel. Aanvankelijk wilde de Nederlandse partij de kat uit de boom kijken, terwijl wij juist met de deur in huis vielen. Onze CEO zei: "Wij gaan niet over &eacute;&eacute;n nacht ijs, maar wij willen ook geen tijd verspillen." Na drie maanden hadden wij eindelijk de puntjes op de i gezet. Het contract had eigenlijk al onder de knie moeten zijn, maar er kwamen steeds nieuwe vraagstukken. Uiteindelijk hakten beide partijen de knopen door en werd het contract getekend. "Geen woorden maar daden," zoals de Rotterdammers zeggen.',
+   en:'The negotiations didn\'t always go smoothly. Initially the Dutch party wanted to wait and see, while we got straight to the point. Our CEO said: "We don\'t rush a decision, but we also don\'t want to waste time." After three months we had finally dotted the i\'s. The contract should have been mastered already, but new issues kept arising. Eventually both parties made the decisions and the contract was signed. "No words but deeds," as the Rotterdammers say.'},
+  'c1-4':{title:'Nederlandse zakenethiek &mdash; Dutch business ethics',
+   nl:'Nederlandse bedrijfscultuur kenmerkt zich door een opmerkelijke directheid en een platte hi&euml;rarchie. Anders dan in veel Aziatische landen, waar respect voor senioriteit centraal staat, spreekt de stagiair in Nederland gerust de CEO aan met "Jan" of "Marieke". Dit kan voor Indiase bezoekers verwarrend zijn, maar het is geen gebrek aan respect; het is juist een teken van vertrouwen. Besluitvorming gebeurt door middel van "polderen": uitgebreid overleg waarbij iedereen wordt gehoord. Dit proces lijkt traag, maar zodra een beslissing genomen is, wordt deze met grote effici&euml;ntie uitgevoerd. Wees vooral helder over wat u wilt, breng harde cijfers mee, en kom op tijd. Vijf minuten te laat is in Nederland onbeleefd; vijf minuten te vroeg is professioneel.',
+   en:'Dutch business culture is characterised by remarkable directness and a flat hierarchy. Unlike in many Asian countries, where respect for seniority is central, in the Netherlands the intern comfortably addresses the CEO as "Jan" or "Marieke". This can be confusing for Indian visitors, but it is no lack of respect; it is rather a sign of trust. Decision-making happens through "polderen": extensive consultation in which everyone is heard. The process seems slow, but as soon as a decision is made, it is executed with great efficiency. Be clear about what you want, bring hard numbers, and arrive on time. Five minutes late is rude in the Netherlands; five minutes early is professional.'}
+};
+
 const DECKS = [
   {id:'a1ess', name:'A1 Essentials', lvl:'A1', desc:'Greetings, numbers, basic verbs',
    cards:[
@@ -1175,7 +1216,7 @@ const LVL_DESC = {
 const state = {
   scr:'home',
   lvl:localStorage.getItem('ds_lvl')||'A1',
-  lessonFilter:'ALL',
+  lessonFilter:localStorage.getItem('ds_lvl')||'A1',
   deck:null,
   cardIdx:0,
   flip:false,
@@ -1208,10 +1249,13 @@ document.querySelectorAll('.tab').forEach(t=>{
 document.getElementById('lvlPick').addEventListener('click',e=>{
   const b=e.target.closest('.lvl-btn');if(!b)return;
   state.lvl=b.dataset.lvl;
+  state.lessonFilter=state.lvl;
   localStorage.setItem('ds_lvl',state.lvl);
   document.querySelectorAll('#lvlPick .lvl-btn').forEach(x=>x.classList.toggle('on',x.dataset.lvl===state.lvl));
+  document.querySelectorAll('#lessonLvlPick .lvl-btn').forEach(x=>x.classList.toggle('on',x.dataset.lvl===state.lvl));
   document.getElementById('hdrLvl').textContent=state.lvl;
   document.getElementById('lvlDesc').innerHTML=LVL_DESC[state.lvl];
+  renderLessons();
 });
 document.getElementById('hdrLvl').addEventListener('click',()=>go('home'));
 
@@ -1222,13 +1266,17 @@ document.getElementById('hdrLvl').addEventListener('click',()=>go('home'));
 function renderLessons(){
   const list=document.getElementById('lessonList');
   const filtered=state.lessonFilter==='ALL'?LESSONS:LESSONS.filter(l=>l.lvl===state.lessonFilter);
-  list.innerHTML=filtered.map((l,i)=>{
+  const head=state.lessonFilter==='ALL'
+    ?`<p class="sub" style="padding:2px 0 10px;">Showing <b>all 20 lessons</b> across A1 to C1. Tap a level above to narrow.</p>`
+    :`<p class="sub" style="padding:2px 0 10px;">Showing <b>${filtered.length} ${state.lessonFilter} lessons</b>. ${LVL_DESC[state.lessonFilter]}</p>`;
+  list.innerHTML=head+filtered.map((l,i)=>{
     const done=state.progress[l.id]?'done':'';
     const num=done?'&#10003;':(i+1);
+    const hasReading=typeof READINGS!=='undefined'&&READINGS[l.id]?'<span style="font-size:10px;color:#ea580c;margin-left:4px;">&#128214; +Reading</span>':'';
     return `<div class="lesson-row" onclick="openLesson('${l.id}')">
       <div class="lesson-num ${done}">${num}</div>
       <div class="lesson-meta">
-        <div class="lesson-title">${l.title} <span class="pill ${l.lvl.toLowerCase()}">${l.lvl}</span></div>
+        <div class="lesson-title">${l.title} <span class="pill ${l.lvl.toLowerCase()}">${l.lvl}</span>${hasReading}</div>
         <div class="lesson-focus">${l.focus}</div>
       </div>
       <div class="deck-go">&rsaquo;</div>
@@ -1274,6 +1322,15 @@ function openLesson(id){
       <span class="lbl">Examples in context</span>
       ${l.examples.map(e=>`<div class="example"><div class="example-nl">${e.nl}</div><div class="example-en">${e.en}</div></div>`).join('')}
     </div>
+    ${READINGS[l.id]?`
+    <div class="card" style="border-left:4px solid #ea580c;">
+      <span class="lbl">Reading Practice &middot; ${l.lvl}</span>
+      <h3 style="margin-bottom:8px;">${READINGS[l.id].title}</h3>
+      <p style="font-size:14px;line-height:1.7;color:#0a1929;">${READINGS[l.id].nl}</p>
+      <hr class="div" style="margin:10px 0;">
+      <p style="font-size:13px;line-height:1.55;color:#6b6357;font-style:italic;">${READINGS[l.id].en}</p>
+      <button class="btn ghost small" style="margin-top:10px;" onclick="say('${READINGS[l.id].nl.replace(/<br\\s*\\/?>/g,' ').replace(/&[a-z]+;/g,' ').replace(/'/g,"\\'").replace(/"/g,'')}')">&#9658; Hear the whole passage</button>
+    </div>`:''}
     <button class="btn alt block" onclick="markLessonDone('${l.id}')">${state.progress[l.id]?'&#10003; Completed':'Mark as Completed'}</button>
   `;
   document.getElementById('lessonDlg').classList.add('on');
@@ -1697,6 +1754,7 @@ function resetProgress(){
 
 document.getElementById('hdrLvl').textContent=state.lvl;
 document.querySelectorAll('#lvlPick .lvl-btn').forEach(x=>x.classList.toggle('on',x.dataset.lvl===state.lvl));
+document.querySelectorAll('#lessonLvlPick .lvl-btn').forEach(x=>x.classList.toggle('on',x.dataset.lvl===state.lessonFilter));
 document.getElementById('lvlDesc').innerHTML=LVL_DESC[state.lvl];
 renderLessons();
 renderDecks();
